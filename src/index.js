@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import { render } from 'react-dom'
 import { Container, Wrapper, Sample, Label } from './styles'
+import GlobalStyles from "./theme/globalStyles";
 import dark from 'prism-react-renderer/themes/nightOwl'
 import light from 'prism-react-renderer/themes/duotoneLight'
 import { Toggle } from "react-toggle-component";
@@ -15,7 +16,9 @@ const App = () => {
   }
 
   return(
+
   <Container>
+  <GlobalStyles />
   <h1>Code.in</h1>
   <Sample>
   <Label htmlFor="toggle-1">
@@ -31,6 +34,7 @@ const App = () => {
     <Editor theme={theme}/>
   </Wrapper>
   </Container>
+ 
 )
 }
 
