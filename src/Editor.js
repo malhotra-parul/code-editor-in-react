@@ -7,9 +7,11 @@ const exampleCode = `
 (function someDemo() {
   var test = "Hello World!";
   console.log(test);
+ 
 })();
 
 return () => <App />;
+// Hello World!
 `
 
 const EditorExample = (props)=> {
