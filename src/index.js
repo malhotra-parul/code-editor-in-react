@@ -1,17 +1,37 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React,{useState} from 'react'
+import { render } from 'react-dom'
+import { Container, Wrapper, Sample, Label } from './styles'
+import dark from 'prism-react-renderer/themes/nightOwl'
+import light from 'prism-react-renderer/themes/duotoneLight'
+import { Toggle } from "react-toggle-component";
+import Editor from './Editor'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const App = () => {
+  const [theme, setTheme] = useState(dark);
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+  const handleToggle = (e)=>{
+    console.log("onToggle", e.target);
+    theme === dark ? setTheme(light) : setTheme(dark);
+  }
+
+  return(
+  <Container>
+  <h1>Code.in</h1>
+  <Sample>
+  <Label htmlFor="toggle-1">
+    Light Mode
+    <Toggle
+      name="toggle-1"
+      onToggle={handleToggle}
+    />
+  </Label>
+</Sample>
+  
+  <Wrapper>
+    <Editor theme={theme}/>
+  </Wrapper>
+  </Container>
+)
+}
+
+render(<App />, document.getElementById('root'))
