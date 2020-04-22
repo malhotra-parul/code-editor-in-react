@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
   font-family: sans-serif;
   text-align: center;
   overflow: scroll;
+  width: 100%;
 `
 
 export const Pre = styled.pre`
@@ -37,10 +38,15 @@ export const Label = styled.label`
   white-space: nowrap;
   align-items: center;
   cursor: pointer;
+  padding: 10px;
+  padding-bottom: 0;
 `
 
 export const Sample = styled.div`
   padding: 16px;
+  display:flex;
+  justify-content: space-evenly;
+  align-items: center;
 `;
 
 export const Image = styled.img`
@@ -56,7 +62,7 @@ export const Image = styled.img`
 `;
 
 export const Heading = styled.header`
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   padding:0;
   width: 100%;
   height: auto;
@@ -124,3 +130,19 @@ export const IconWrapper = styled.div`
   transition: .09s;
 `;
 
+export const IDEWrapper = styled.div`
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background-color: white;
+  width: 70%;
+  margin: 0 auto;
+  
+`;
+
+export const TopToolbar = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+`;

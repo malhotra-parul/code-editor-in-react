@@ -26,7 +26,7 @@ const EditorExample = (props)=> {
     root: {
       boxSizing: 'border-box',
       height: "550px",
-      width: "50em",
+      width: "auto",
       fontFamily: '"Dank Mono", "Fira Code", monospace',
       boxShadow: "0px 0px 18px 8px rgba(113,130,88,0.63)",
       border: "1px dotted #243020",
