@@ -141,8 +141,17 @@ export const IDEWrapper = styled.div`
   
 `;
 
-export const TopToolbar = styled.div`
+export const Toolbar = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  height: 50px;
+`;
+
+export const CompileButton = styled.button`
+  background-color: green;
+  color: white;
+  font-size: 1.3em;
+  padding: 5px 35px;
+  font-family: 'Roboto Mono', monospace;
 `;
