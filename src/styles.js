@@ -95,8 +95,8 @@ export const UnorderedList = styled.ul`
 
 export const Link = styled.a`
   position: relative;
-  width:40px;
-  height:40px;
+  width:30px;
+  height:30px;
   display:block;
   text-align:center;
   margin: 0 10px;
@@ -118,8 +118,8 @@ export const IconWrapper = styled.div`
   height: 100%;
   background: linear-gradient(0deg, #fff, #ddd);
   border-radius: 50%;
-  line-height: calc( - 12px);
-  font-size:24px;
+  line-height: calc(  18px);
+  font-size:19px;
   color: #262626;
   transition: .09s;
 `;

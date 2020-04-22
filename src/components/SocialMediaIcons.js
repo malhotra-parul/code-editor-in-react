@@ -9,11 +9,11 @@ const SocialMedia = () => {
     return (
         <div>
             <UnorderedList>
-            <li><Link href=""><IconWrapper><FontAwesomeIcon icon={faFacebookF} color="#549cdf" size="xs" /></IconWrapper></Link></li>
-            <li><Link href=""><IconWrapper><FontAwesomeIcon icon={faTwitter} color="#00aced" size="xs"/></IconWrapper></Link></li>
-            <li><Link href=""><IconWrapper><FontAwesomeIcon icon={faGithub} color="#dd4b39" size="xs"/></IconWrapper></Link></li>
-            <li><Link href=""><IconWrapper><FontAwesomeIcon icon={faLinkedinIn} color="#007bb6" size="xs"/></IconWrapper></Link></li>
-            <li><Link href=""><IconWrapper><FontAwesomeIcon icon={faInstagram} color="#e4405f" size="xs"/></IconWrapper></Link></li>
+            <li><Link target="_blank" href="https://www.facebook.com/www.code.in"><IconWrapper><FontAwesomeIcon icon={faFacebookF} color="#549cdf" size="xs" /></IconWrapper></Link></li>
+            <li><Link target="_blank" href="https://twitter.com/codedotin"><IconWrapper><FontAwesomeIcon icon={faTwitter} color="#00aced" size="xs"/></IconWrapper></Link></li>
+            <li><Link target="_blank" href="https://github.com/www-code-in"><IconWrapper><FontAwesomeIcon icon={faGithub} color="#dd4b39" size="xs"/></IconWrapper></Link></li>
+            <li><Link target="_blank" href="https://www.linkedin.com/company/code-in/"><IconWrapper><FontAwesomeIcon icon={faLinkedinIn} color="#007bb6" size="xs"/></IconWrapper></Link></li>
+            <li><Link target="_blank" href="https://www.instagram.com/codeindia_/"><IconWrapper><FontAwesomeIcon icon={faInstagram} color="#e4405f" size="xs"/></IconWrapper></Link></li>
             </UnorderedList>
         </div>
       );
