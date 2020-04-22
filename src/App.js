@@ -5,6 +5,8 @@ import dark from 'prism-react-renderer/themes/nightOwl';
 import light from 'prism-react-renderer/themes/duotoneLight';
 import { Toggle } from "react-toggle-component";
 import Editor from './components/Editor';
+import Header from "./components/Header";
+import Font from "./fonts/fonts";
 
 const App = () => {
     const [theme, setTheme] = useState(dark);
@@ -16,7 +18,8 @@ const App = () => {
     return(
     <Container>
     <GlobalStyles />
-    <h1>Code.in</h1>
+    <Font />
+    <Header />
     <Sample>
     <Label htmlFor="toggle-1">
       Light Mode

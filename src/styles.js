@@ -1,4 +1,5 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
+
 
 export const Container = styled.div`
     margin: 20px;
@@ -39,5 +40,21 @@ export const Label = styled.label`
 `
 
 export const Sample = styled.div`
-padding: 16px;
+  padding: 16px;
+`;
+
+export const Image = styled.img`
+  width: 10em;
+  height: 2em;
+  position: relative;
+  left: 20px;
+`;
+
+export const Heading = styled.header`
+  margin-bottom:20px;
+  padding:0;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
 `;
