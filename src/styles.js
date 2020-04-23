@@ -28,20 +28,42 @@ export const LineNo = styled.span`
   width: 2em;
   user-select: none;
   opacity: 0.3;
-`
+`;
 
-export const Label = styled.label`
-  font-weight: bold;
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: min-content;
-  white-space: nowrap;
-  align-items: center;
-  border-bottom: 3px solid green;
-  cursor: pointer;
-  padding: 10px;
-  padding-bottom: 0;
-`
+export const ToggleInput = styled.input`
+  -webkit-appearance: none;
+  outline: none;
+  position: relative;
+  width: 60px;
+  height: 30px;
+  background: url(https://image.flaticon.com/icons/svg/1164/1164954.svg);
+  background-size: contain;
+  border-radius: 50px;
+  transition: background-image 0.5s;
+  box-shadow: 0px 2px 5px 1px gray;
+  margin-bottom: 20px;
+  &:checked{
+    background-image: url(https://image.flaticon.com/icons/svg/2033/2033921.svg);
+    transition: background-image 0.5s;
+    &::before{
+      transform: translateX(100%);
+      background-color: #283634;
+      transition: all 0.5s;
+    }
+  }
+  &::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 30px;
+    width: 30px;
+    
+  background : #F28F44;
+  border-radius: 50px;
+  transition: all 0.5s;
+  }
+`;
 
 export const Sample = styled.div`
   padding: 16px;

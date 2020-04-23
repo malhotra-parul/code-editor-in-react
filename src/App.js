@@ -3,14 +3,13 @@ import {
   Container,
   Wrapper,
   Sample,
-  Label,
+  ToggleInput,
   IDEWrapper,
   Toolbar
 } from "./styles";
 import GlobalStyles from "./theme/globalStyles";
 import dark from "prism-react-renderer/themes/nightOwl";
 import light from "prism-react-renderer/themes/duotoneLight";
-import { Toggle } from "react-toggle-component";
 import Editor from "./components/Editor";
 import Header from "./components/Header";
 import Button from "./components/Button";
@@ -35,9 +34,7 @@ const App = () => {
       <IDEWrapper>
         <Toolbar>
           <Sample>
-            <Label htmlFor="toggle-1">Light Mode</Label>
-            <Toggle name="toggle-1" onToggle={handleToggle} />
-            <Label htmlFor="toggle-1">Dark Mode</Label>
+          <ToggleInput type="checkbox" onChange={handleToggle} />
           </Sample>
           <Sample>
             <span>Autosave: </span>
