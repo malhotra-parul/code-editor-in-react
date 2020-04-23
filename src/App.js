@@ -14,6 +14,7 @@ import { Toggle } from "react-toggle-component";
 import Editor from "./components/Editor";
 import Header from "./components/Header";
 import Button from "./components/Button";
+import YourIp from "./components/YourIP";
 import Font from "./fonts/fonts";
 
 const App = () => {
@@ -49,7 +50,13 @@ const App = () => {
           <Editor theme={theme} />
         </Wrapper>
         <Toolbar>
-          <div>Bottom toolbar</div>
+          <div>
+            <span>DownloadFile </span>
+            <span>line: </span>
+            <span>Column: </span>
+            <span>FontSize </span>
+            <YourIp />
+          </div>
           <Button />
         </Toolbar>
       </IDEWrapper>
