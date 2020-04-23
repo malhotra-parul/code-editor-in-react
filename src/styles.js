@@ -37,6 +37,7 @@ export const Label = styled.label`
   grid-auto-columns: min-content;
   white-space: nowrap;
   align-items: center;
+  border-bottom: 3px solid green;
   cursor: pointer;
   padding: 10px;
   padding-bottom: 0;

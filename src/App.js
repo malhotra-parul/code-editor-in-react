@@ -40,10 +40,11 @@ const App = () => {
             <Label htmlFor="toggle-1">Dark Mode</Label>
           </Sample>
           <Sample>
-            <span>Autosave</span>
-            <span>Inc FontSize</span>
-            <span>Reset Code</span>
-            <span>Select language</span>
+            <span>Autosave: </span>
+            <span>IncFontSize:  </span>
+            <span>FullScreen:  </span>
+            <span>ResetCode:  </span>
+            <span>SelectLanguage: </span>
           </Sample>
         </Toolbar>
         <Wrapper>
