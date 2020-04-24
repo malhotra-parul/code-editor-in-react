@@ -17,15 +17,40 @@ import YourIp from "./components/YourIP";
 import Font from "./fonts/fonts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave } from "@fortawesome/free-regular-svg-icons";
-import { faTextHeight, faCompress, faSync, faDownload, faFont } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTextHeight,
+  faCompress,
+  faSync,
+  faDownload,
+  faFont,
+} from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 library.add(faSave, faTextHeight, faCompress, faSync, faDownload, faFont);
 
+const exampleCode = `
+(function someDemo() {
+  var test = "Hello World!";
+  console.log(test);
+ 
+})();
+
+return () => <App />;
+// Hello World!
+`;
+
 const App = () => {
+    const [code, setCode] = useState(
+        localStorage.getItem("myCode") || exampleCode
+      );
   const [theme, setTheme] = useState(light);
+  const [isReset, setIsReset] = useState(false);
   const [fontSize, setFontSize] = useState(
     Number(localStorage.getItem("fontSize")) || 14
   );
+
+  useEffect(() => {
+    localStorage.setItem("myCode", code);
+  }, [code]);
 
   useEffect(() => {
     localStorage.setItem("fontSize", fontSize);
@@ -38,6 +63,16 @@ const App = () => {
   const onFontInc = () => {
     fontSize === 26 ? setFontSize(14) : setFontSize(fontSize + 2);
   };
+  const handleReset = (e) => {
+    
+
+    e.preventDefault();
+    setIsReset(true);
+    setCode(exampleCode);
+    setIsReset(false);
+  }
+
+ 
 
   return (
     <Container>
@@ -73,44 +108,54 @@ const App = () => {
                 style={{ padding: "10px" }}
               />{" "}
             </span>
-            <span><FontAwesomeIcon
-                    icon={faCompress}
-                    color="green"
-                    size="2x"
-                    title="FullScreen"
-                    style={{ padding: "10px" }}
-                   /></span>
-            <span><FontAwesomeIcon
-                    icon={faSync}
-                    color="green"
-                    size="2x"
-                    title="Reset Code"
-                    style={{ padding: "10px" }}
-                /></span>
+            <span>
+              <FontAwesomeIcon
+                icon={faCompress}
+                color="green"
+                size="2x"
+                title="FullScreen"
+                style={{ padding: "10px" }}
+              />
+            </span>
+            <span>
+              <FontAwesomeIcon
+                icon={faSync}
+                color="green"
+                size="2x"
+                title="Reset Code"
+                style={{ padding: "10px" }}
+                onClick={handleReset}
+              />
+            </span>
             <span>SelectLanguage: </span>
           </Sample>
         </Toolbar>
         <Wrapper>
-          <Editor theme={theme} font={fontSize} />
+          <Editor theme={theme} font={fontSize} value={code} onChange={(x)=> setCode(x)}/>
         </Wrapper>
         <Toolbar>
           <Sample>
-            <span><FontAwesomeIcon
-                        icon={faDownload}
-                        color="green"
-                        size="2x"
-                        title="Download File"
-                        style={{ padding: "0 10px" }}
-                    /></span>
+            <span>
+              <FontAwesomeIcon
+                icon={faDownload}
+                color="green"
+                size="2x"
+                title="Download File"
+                style={{ padding: "0 10px" }}
+              />
+            </span>
             <span>Line: </span>
             <span>Char: </span>
-            <span><FontAwesomeIcon
-                        icon={faFont}
-                        color="green"
-                        size="2x"
-                        title="Download File"
-                        style={{ padding: "0 10px"}}
-                    />:{fontSize}</span>
+            <span>
+              <FontAwesomeIcon
+                icon={faFont}
+                color="green"
+                size="2x"
+                title="Download File"
+                style={{ padding: "0 10px" }}
+              />
+              :{fontSize}
+            </span>
             <YourIp />
           </Sample>
           <Sample>
