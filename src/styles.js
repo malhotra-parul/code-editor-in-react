@@ -70,6 +70,7 @@ export const Sample = styled.div`
   display:flex;
   justify-content: space-evenly;
   align-items: center;
+  line-height: -2;
 `;
 
 export const Image = styled.img`

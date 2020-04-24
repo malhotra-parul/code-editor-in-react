@@ -17,9 +17,9 @@ import YourIp from "./components/YourIP";
 import Font from "./fonts/fonts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave } from "@fortawesome/free-regular-svg-icons";
-import { faTextHeight } from "@fortawesome/free-solid-svg-icons";
+import { faTextHeight, faCompress, faSync, faDownload, faFont } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
-library.add(faSave, faTextHeight);
+library.add(faSave, faTextHeight, faCompress, faSync, faDownload, faFont);
 
 const App = () => {
   const [theme, setTheme] = useState(light);
@@ -73,8 +73,20 @@ const App = () => {
                 style={{ padding: "10px" }}
               />{" "}
             </span>
-            <span>FullScreen: </span>
-            <span>ResetCode: </span>
+            <span><FontAwesomeIcon
+                    icon={faCompress}
+                    color="green"
+                    size="2x"
+                    title="FullScreen"
+                    style={{ padding: "10px" }}
+                   /></span>
+            <span><FontAwesomeIcon
+                    icon={faSync}
+                    color="green"
+                    size="2x"
+                    title="Reset Code"
+                    style={{ padding: "10px" }}
+                /></span>
             <span>SelectLanguage: </span>
           </Sample>
         </Toolbar>
@@ -83,10 +95,22 @@ const App = () => {
         </Wrapper>
         <Toolbar>
           <Sample>
-            <span>DownloadFile </span>
-            <span>line: </span>
-            <span>Column: </span>
-            <span>FontSize </span>
+            <span><FontAwesomeIcon
+                        icon={faDownload}
+                        color="green"
+                        size="2x"
+                        title="Download File"
+                        style={{ padding: "0 10px" }}
+                    /></span>
+            <span>Line: </span>
+            <span>Char: </span>
+            <span><FontAwesomeIcon
+                        icon={faFont}
+                        color="green"
+                        size="2x"
+                        title="Download File"
+                        style={{ padding: "0 10px"}}
+                    />:{fontSize}</span>
             <YourIp />
           </Sample>
           <Sample>
