@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 
 import Editor from 'react-simple-code-editor'
 import Highlight, { defaultProps } from 'prism-react-renderer'
@@ -14,28 +14,35 @@ return () => <App />;
 // Hello World!
 `
 
-const EditorExample = (props)=> {
+const EditorExample = ({theme, font})=> {
 
-    const [code, setCode] = useState(exampleCode);
 
+    const [code, setCode] = useState(localStorage.getItem("myCode")|| exampleCode);
+    
   const onValueChange = code => {
     setCode(code);
-  }
+  };
+
+  useEffect(()=>{
+    localStorage.setItem("myCode", code);
+  }, [code]);
+  console.log(font);
 
   const styles = {
     root: {
+      fontSize: font,
       boxSizing: 'border-box',
       height: "550px",
       width: "auto",
       fontFamily: '"Dank Mono", "Fira Code", monospace',
       boxShadow: "0px 0px 18px 8px rgba(113,130,88,0.63)",
       border: "1px dotted #243020",
-      ...props.theme.plain
+      ...theme.plain
     }
   }
 
   const highlight = code => (
-    <Highlight {...defaultProps} theme={props.theme} code={code} language="js">
+    <Highlight {...defaultProps} theme={theme} code={code} language="js">
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <Fragment>
           {tokens.map((line, i) => (

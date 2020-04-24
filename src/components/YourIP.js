@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLaptopHouse } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+library.add(faLaptopHouse);
 
 const YourIp = () => {
     const [data, setData] = useState("");
@@ -15,10 +19,14 @@ const YourIp = () => {
            } )
         }, []     
     )
-    console.log(data);
+
     return ( 
         <span>
-        <span style={{color: "green"}}>Your IP: </span> {data}
+        <FontAwesomeIcon icon={faLaptopHouse}
+                        color="green"
+                        size="2x"
+                        title="Your IP"
+                        style={{ padding: " 0 10px" }}/>: {data}
         </span>
      );
 }
