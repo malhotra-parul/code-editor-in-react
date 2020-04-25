@@ -3,19 +3,7 @@ import React, { Fragment } from "react";
 import Editor from "react-simple-code-editor";
 import Highlight, { defaultProps } from "prism-react-renderer";
 
-const exampleCode = `
-(function someDemo() {
-  var test = "Hello World!";
-  console.log(test);
- 
-})();
-
-return () => <App />;
-// Hello World!
-`;
-
 const EditorExample = ({ theme, font, value, onChange }) => {
-
 
   const styles = {
     root: {

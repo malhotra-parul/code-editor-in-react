@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
   text-align: center;
   overflow: scroll;
   width: 100%;
+  z-index: 0;
 `;
 
 export const Pre = styled.pre`
@@ -182,14 +183,18 @@ export const Bg = styled.div`
   width: 100%;
   height: 100vh;
   top: 0;
+  z-index: 1;
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  visibility: hidden;
-  opacity: 0;
+  visibility: ${props =>
+    props.isModalOpen === true ? "visible" : "hidden"};
+  opacity: ${props =>
+    props.isModalOpen === true ? "1" : "0"};
   transition: visibility 0s, opacity 0.5s;
+
 `;
 
 export const Active = styled.div`

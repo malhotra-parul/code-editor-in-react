@@ -44,11 +44,10 @@ const App = () => {
         localStorage.getItem("myCode") || exampleCode
       );
   const [theme, setTheme] = useState(light);
-  const [isReset, setIsReset] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [fontSize, setFontSize] = useState(
     Number(localStorage.getItem("fontSize")) || 14
   );
-
   useEffect(() => {
     localStorage.setItem("myCode", code);
   }, [code]);
@@ -65,12 +64,13 @@ const App = () => {
     fontSize === 26 ? setFontSize(14) : setFontSize(fontSize + 2);
   };
   const handleReset = (e) => {
-    
-
     e.preventDefault();
-    setIsReset(true);
-    setCode(exampleCode);
-    setIsReset(false);
+    setIsModalOpen(true);
+  
+    console.log(isModalOpen);
+
+    // setCode(exampleCode);
+    // setIsReset(false);
   }
 
  
@@ -80,7 +80,7 @@ const App = () => {
       <GlobalStyles />
       <Font />
       <Header />
-      <Modal />
+      <Modal isModalOpen={isModalOpen}/>
       <IDEWrapper>
         <Toolbar>
           <Sample>

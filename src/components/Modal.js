@@ -1,9 +1,9 @@
 import React from "react";
 import {Bg, PopUp, Tip, ImageHolder, DivHolder, Img, ButtonHolder, ModalBtn } from "../styles";
 
-const Modal = () => {
+const Modal = ({isModalOpen}) => {
   return (
-    <Bg>
+    isModalOpen && <Bg isModalOpen>
       <PopUp>
         <h3>Are you sure you want to delete it?</h3>
         <Tip>
@@ -21,7 +21,7 @@ const Modal = () => {
         </ButtonHolder>
       </PopUp>
     </Bg>
-  );
+    );
 };
 
 export default Modal;
