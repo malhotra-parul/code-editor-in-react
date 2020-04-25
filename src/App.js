@@ -15,6 +15,7 @@ import Header from "./components/Header";
 import Button from "./components/Button";
 import YourIp from "./components/YourIP";
 import Font from "./fonts/fonts";
+import Modal from "./components/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -79,6 +80,7 @@ const App = () => {
       <GlobalStyles />
       <Font />
       <Header />
+      <Modal />
       <IDEWrapper>
         <Toolbar>
           <Sample>

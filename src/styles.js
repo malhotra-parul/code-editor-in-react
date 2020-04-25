@@ -176,3 +176,109 @@ export const CompileButton = styled.button`
   padding: 5px 35px;
   font-family: "Roboto Mono", monospace;
 `;
+
+export const Bg = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s;
+`;
+
+export const Active = styled.div`
+  visibility: visible;
+  opacity: 1;
+`;
+
+export const PopUp = styled.div`
+  background: white;
+  width: 50%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  outline: none;
+  box-sizing: border-box;
+  box-shadow: 5px 5px 5px 0px #c6c2c2;
+  transition: all 0.6s;
+
+  @media(max-width: 660px){
+    padding: 2px;
+    width: 90%;
+  }
+`;
+
+export const Tip = styled.p`
+  color: #c6c2c2;
+  @media(max-width: 660px){
+    font-size: 14px;
+  }
+`;
+export const ImageHolder = styled.div`
+  background: #ecf3fe;
+  padding: 15px;
+  border-radius: 70px;
+  z-index: 1;
+  @media(max-width: 660px){
+    padding: 2px;
+  }
+`;
+export const DivHolder = styled.div`
+  background: #ddebfd;
+  padding: 20px;
+  z-index: 4;
+  border-radius: 100px;
+`;
+export const Img = styled.img`
+  height: 60px;
+  width: auto;
+  @media(max-width: 660px){
+    height: 50px;
+  }
+`;
+
+export const ButtonHolder= styled.div`
+  width: 70%;
+  display: flex;
+  justify-content: space-evenly;
+`;
+
+export const ModalBtn = styled.button`
+  position: relative;
+  background-color: #77c835;
+  color: white;
+  font-size: 16px;
+  padding: 0.8vw 2vw;
+  border-radius: 15px;
+  font-family: "Roboto Mono";
+  box-shadow: 0px 5px 0px 0px rgba(87, 167, 42, 1);
+  border: none;
+  font-weight: bold;
+  letter-spacing: 0.8px;
+  margin: 10px;
+  &:active{
+  box-shadow: none;
+  transform: translate(0, 5px);
+  transition: all 0.2s;
+
+  @media(max-width: 660px){
+    padding: 5px 10px;
+  }
+  }
+  &:focus{
+    outline: none;
+  }
+`;
+
