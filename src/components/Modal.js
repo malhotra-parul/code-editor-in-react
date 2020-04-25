@@ -1,7 +1,14 @@
 import React from "react";
 import {Bg, PopUp, Tip, ImageHolder, DivHolder, Img, ButtonHolder, ModalBtn } from "../styles";
 
-const Modal = ({isModalOpen}) => {
+const Modal = ({isModalOpen, handleCancel, handleDelete}) => {
+    const handleCancelBtn = ()=>{
+        handleCancel();
+   };
+   const handleDeleteBtn = ()=>{
+    handleDelete();
+   }
+
   return (
     isModalOpen && <Bg isModalOpen>
       <PopUp>
@@ -16,8 +23,8 @@ const Modal = ({isModalOpen}) => {
           </ImageHolder>
         </DivHolder>
         <ButtonHolder>
-          <ModalBtn id="confirm">Delete</ModalBtn>
-          <ModalBtn id="cancel">Cancel</ModalBtn>
+          <ModalBtn onClick={handleDeleteBtn}>Delete</ModalBtn>
+          <ModalBtn onClick={handleCancelBtn}>Cancel</ModalBtn>
         </ButtonHolder>
       </PopUp>
     </Bg>

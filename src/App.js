@@ -44,6 +44,7 @@ const App = () => {
         localStorage.getItem("myCode") || exampleCode
       );
   const [theme, setTheme] = useState(light);
+  const [isReset, setIsReset] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [fontSize, setFontSize] = useState(
     Number(localStorage.getItem("fontSize")) || 14
@@ -66,11 +67,16 @@ const App = () => {
   const handleReset = (e) => {
     e.preventDefault();
     setIsModalOpen(true);
-  
-    console.log(isModalOpen);
+    setIsReset(true);
+  }
+  const handleCancel = ()=>{
+    setIsModalOpen(false);
+  };
 
-    // setCode(exampleCode);
-    // setIsReset(false);
+  const handleDelete = ()=>{
+    setIsModalOpen(false);
+    setIsReset(false);
+    setCode(exampleCode);
   }
 
  
@@ -80,7 +86,7 @@ const App = () => {
       <GlobalStyles />
       <Font />
       <Header />
-      <Modal isModalOpen={isModalOpen}/>
+      <Modal isModalOpen={isModalOpen} handleCancel={handleCancel} handleDelete={handleDelete}/>
       <IDEWrapper>
         <Toolbar>
           <Sample>
