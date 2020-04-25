@@ -197,15 +197,10 @@ export const Bg = styled.div`
 
 `;
 
-export const Active = styled.div`
-  visibility: visible;
-  opacity: 1;
-`;
-
 export const PopUp = styled.div`
   background: white;
-  width: 50%;
-  height: 60%;
+  width: 40%;
+  height: 50%;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
