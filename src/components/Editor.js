@@ -14,8 +14,10 @@ const EditorExample = ({ theme, font, value, onChange, exampleCode }) => {
       overflowY: "auto",
       fontFamily: '"Dank Mono", "Fira Code", monospace',
       boxShadow: "0px 0px 18px 8px rgba(113,130,88,0.63)",
-      border: "1px dotted #243020",
+      border: "none",
       ...theme.plain,
+      outline: "none"
+
   
   };
 

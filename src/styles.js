@@ -11,7 +11,6 @@ export const Wrapper = styled.div`
   width: 100%;
   height: "550px";
   resize: "none";
-  
 `;
 
 export const Pre = styled.pre`
