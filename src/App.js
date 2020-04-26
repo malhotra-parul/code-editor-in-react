@@ -182,3 +182,11 @@ const App = () => {
 };
 
 export default App;
+
+// API response to fetch new div
+{
+//   "output":"hello world",
+//    "status" : 1,
+//     "time":"1.233 ms",
+//     "memory": "5 KB"
+//  }

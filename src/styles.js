@@ -24,8 +24,6 @@ export const Pre = styled.pre`
   }
 `;
 
-
-
 export const ToggleInput = styled.input`
   -webkit-appearance: none;
   outline: none;
