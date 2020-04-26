@@ -28,6 +28,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 library.add(faSave, faTextHeight, faCompress, faSync, faDownload, faFont);
+var fileDownload = require('js-file-download');
 
 const exampleCode = `
 (function someDemo() {
@@ -80,6 +81,9 @@ const App = () => {
     setIsReset(false);
     setCode(exampleCode);
   };
+  const downloadFile = ()=>{
+    fileDownload(code, 'myCode.js');
+  }
 
   return (
     <Container>
@@ -153,6 +157,7 @@ const App = () => {
                 size="lg"
                 title="Download File"
                 style={{ padding: "0 10px" }}
+                onClick={downloadFile}
               />
             </span>
             <span>

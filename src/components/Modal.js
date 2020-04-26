@@ -23,7 +23,7 @@ const Modal = ({isModalOpen, handleCancel, handleDelete}) => {
           </ImageHolder>
         </DivHolder>
         <ButtonHolder>
-          <ModalBtn onClick={handleDeleteBtn}>Delete</ModalBtn>
+          <ModalBtn onClick={handleDeleteBtn}>Reset</ModalBtn>
           <ModalBtn onClick={handleCancelBtn}>Cancel</ModalBtn>
         </ButtonHolder>
       </PopUp>

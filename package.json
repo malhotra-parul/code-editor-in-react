@@ -12,6 +12,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
+    "js-file-download": "^0.4.11",
     "node-fetch": "^2.6.0",
     "prism-react-renderer": "^1.0.2",
     "prismjs": "^1.20.0",
