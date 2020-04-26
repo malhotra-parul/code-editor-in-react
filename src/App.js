@@ -8,14 +8,15 @@ import {
   Toolbar,
 } from "./styles";
 import GlobalStyles from "./theme/globalStyles";
-import dark from "prism-react-renderer/themes/nightOwl";
-import light from "prism-react-renderer/themes/duotoneLight";
+import dark from "prism-react-renderer/themes/shadesOfPurple";
+import light from "prism-react-renderer/themes/github";
 import Editor from "./components/Editor";
 import Header from "./components/Header";
 import Button from "./components/Button";
 import YourIp from "./components/YourIP";
 import Font from "./fonts/fonts";
 import Modal from "./components/Modal";
+import SelectLanguage from "./components/SelectLanguage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -40,15 +41,16 @@ return () => <App />;
 `;
 
 const App = () => {
-    const [code, setCode] = useState(
-        localStorage.getItem("myCode") || exampleCode
-      );
+  const [code, setCode] = useState(
+    localStorage.getItem("myCode") || exampleCode
+  );
   const [theme, setTheme] = useState(light);
   const [isReset, setIsReset] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [fontSize, setFontSize] = useState(
     Number(localStorage.getItem("fontSize")) || 14
   );
+
   useEffect(() => {
     localStorage.setItem("myCode", code);
   }, [code]);
@@ -68,25 +70,27 @@ const App = () => {
     e.preventDefault();
     setIsModalOpen(true);
     setIsReset(true);
-  }
-  const handleCancel = ()=>{
+  };
+  const handleCancel = () => {
     setIsModalOpen(false);
   };
 
-  const handleDelete = ()=>{
+  const handleDelete = () => {
     setIsModalOpen(false);
     setIsReset(false);
     setCode(exampleCode);
-  }
-
- 
+  };
 
   return (
     <Container>
       <GlobalStyles />
       <Font />
       <Header />
-      <Modal isModalOpen={isModalOpen} handleCancel={handleCancel} handleDelete={handleDelete}/>
+      <Modal
+        isModalOpen={isModalOpen}
+        handleCancel={handleCancel}
+        handleDelete={handleDelete}
+      />
       <IDEWrapper>
         <Toolbar>
           <Sample>
@@ -101,7 +105,7 @@ const App = () => {
               <FontAwesomeIcon
                 icon={faSave}
                 color="green"
-                size="2x"
+                size="lg"
                 title="Autosaved"
                 style={{ padding: "10px" }}
               />
@@ -111,35 +115,34 @@ const App = () => {
                 icon={faTextHeight}
                 onClick={onFontInc}
                 color="green"
-                size="2x"
+                size="lg"
                 title="Change Font Size"
                 style={{ padding: "10px" }}
               />{" "}
             </span>
             <span>
               <FontAwesomeIcon
-                icon={faCompress}
-                color="green"
-                size="2x"
-                title="FullScreen"
-                style={{ padding: "10px" }}
-              />
-            </span>
-            <span>
-              <FontAwesomeIcon
                 icon={faSync}
                 color="green"
-                size="2x"
+                size="lg"
                 title="Reset Code"
                 style={{ padding: "10px" }}
                 onClick={handleReset}
               />
             </span>
-            <span>SelectLanguage: </span>
+            <span>
+              <SelectLanguage />
+            </span>
           </Sample>
         </Toolbar>
-        <Wrapper>
-          <Editor theme={theme} font={fontSize} value={code} onChange={(x)=> setCode(x)}/>
+        <Wrapper >
+          <Editor
+            theme={theme}
+            font={fontSize}
+            value={code}
+            onChange={(x) => setCode(x)}
+
+          />
         </Wrapper>
         <Toolbar>
           <Sample>
@@ -147,7 +150,7 @@ const App = () => {
               <FontAwesomeIcon
                 icon={faDownload}
                 color="green"
-                size="2x"
+                size="lg"
                 title="Download File"
                 style={{ padding: "0 10px" }}
               />
@@ -158,7 +161,7 @@ const App = () => {
               <FontAwesomeIcon
                 icon={faFont}
                 color="green"
-                size="2x"
+                size="lg"
                 title="Download File"
                 style={{ padding: "0 10px" }}
               />

@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   text-align: center;
   overflow: scroll;
   width: 100%;
-  z-index: 0;
+  height: "550px";
 `;
 
 export const Pre = styled.pre`
@@ -159,7 +159,7 @@ export const IDEWrapper = styled.div`
   justify-content: center;
   align-items: center;
   background-color: white;
-  width: 70%;
+  width: 80%;
   margin: 0 auto;
 `;
 
@@ -257,14 +257,14 @@ export const ButtonHolder= styled.div`
 
 export const ModalBtn = styled.button`
   position: relative;
-  background-color: #77c835;
-  color: white;
+  background-color: transparent;
+  color: green;
   font-size: 16px;
   padding: 0.8vw 2vw;
   border-radius: 15px;
   font-family: "Roboto Mono";
-  box-shadow: 0px 5px 0px 0px rgba(87, 167, 42, 1);
-  border: none;
+  box-shadow: 0px 2px 0px 2px rgba(87, 167, 42, 1);
+  border: 0.5px solid green;
   font-weight: bold;
   letter-spacing: 0.8px;
   margin: 10px;
@@ -279,6 +279,17 @@ export const ModalBtn = styled.button`
   }
   &:focus{
     outline: none;
+  }
+`;
+
+export const SelectLang = styled.span`
+  background: #e8efe8;
+  padding: 10px;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+  &:hover{
+    cursor: pointer;
+
   }
 `;
 

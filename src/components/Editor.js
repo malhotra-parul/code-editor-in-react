@@ -6,16 +6,18 @@ import Highlight, { defaultProps } from "prism-react-renderer";
 const EditorExample = ({ theme, font, value, onChange }) => {
 
   const styles = {
-    root: {
       fontSize: font,
       boxSizing: "border-box",
-      height: "550px",
-      width: "auto",
+      overflowWrap: "break-word",
+      minHeight: "550px",
+      width: "100%",
+      whiteSpace: "nowrap",
+      overflow: "scroll",
       fontFamily: '"Dank Mono", "Fira Code", monospace',
       boxShadow: "0px 0px 18px 8px rgba(113,130,88,0.63)",
       border: "1px dotted #243020",
       ...theme.plain,
-    },
+  
   };
 
   const highlight = (code) => (
@@ -36,11 +38,12 @@ const EditorExample = ({ theme, font, value, onChange }) => {
 
   return (
     <Editor
+      className="npm__react-simple-code-editor__textarea"
       value={value}
       onValueChange={(value)=>onChange(value)}
       highlight={highlight}
       padding={10}
-      style={styles.root}
+      style={styles}
     />
   );
 };

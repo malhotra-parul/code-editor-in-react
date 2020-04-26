@@ -12,7 +12,7 @@ const Modal = ({isModalOpen, handleCancel, handleDelete}) => {
   return (
     isModalOpen && <Bg isModalOpen>
       <PopUp>
-        <h3>Are you sure you want to delete it?</h3>
+        <h3>Are you sure you want to Reset Code?</h3>
         <Tip>
           Tip: You can download the file from the Download button in the bottom
           toolbar!
