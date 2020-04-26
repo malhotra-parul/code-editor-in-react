@@ -141,7 +141,7 @@ const App = () => {
             font={fontSize}
             value={code}
             onChange={(x) => setCode(x)}
-
+            exampleCode={exampleCode}
           />
         </Wrapper>
         <Toolbar>
@@ -155,8 +155,6 @@ const App = () => {
                 style={{ padding: "0 10px" }}
               />
             </span>
-            <span>Line: </span>
-            <span>Char: </span>
             <span>
               <FontAwesomeIcon
                 icon={faFont}

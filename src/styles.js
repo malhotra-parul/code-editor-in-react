@@ -7,9 +7,11 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
   font-family: sans-serif;
   text-align: center;
-  overflow: scroll;
+  overflow-y: auto;
   width: 100%;
   height: "550px";
+  resize: "none";
+  
 `;
 
 export const Pre = styled.pre`
@@ -23,12 +25,7 @@ export const Pre = styled.pre`
   }
 `;
 
-export const LineNo = styled.span`
-  display: inline-block;
-  width: 2em;
-  user-select: none;
-  opacity: 0.3;
-`;
+
 
 export const ToggleInput = styled.input`
   -webkit-appearance: none;

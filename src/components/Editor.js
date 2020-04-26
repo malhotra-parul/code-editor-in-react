@@ -1,18 +1,17 @@
 import React, { Fragment } from "react";
-
 import Editor from "react-simple-code-editor";
 import Highlight, { defaultProps } from "prism-react-renderer";
 
-const EditorExample = ({ theme, font, value, onChange }) => {
+const EditorExample = ({ theme, font, value, onChange, exampleCode }) => {
+
 
   const styles = {
       fontSize: font,
       boxSizing: "border-box",
-      overflowWrap: "break-word",
       minHeight: "550px",
       width: "100%",
-      whiteSpace: "nowrap",
-      overflow: "scroll",
+      resize: "none",
+      overflowY: "auto",
       fontFamily: '"Dank Mono", "Fira Code", monospace',
       boxShadow: "0px 0px 18px 8px rgba(113,130,88,0.63)",
       border: "1px dotted #243020",
@@ -25,10 +24,12 @@ const EditorExample = ({ theme, font, value, onChange }) => {
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <Fragment>
           {tokens.map((line, i) => (
+          
             <div {...getLineProps({ line, key: i })}>
-              {line.map((token, key) => (
-                <span {...getTokenProps({ token, key })} />
-              ))}
+              {line.map((token, key) => {
+         
+                return <span {...getTokenProps({ token, key })} />
+          })}
             </div>
           ))}
         </Fragment>
@@ -38,11 +39,10 @@ const EditorExample = ({ theme, font, value, onChange }) => {
 
   return (
     <Editor
-      className="npm__react-simple-code-editor__textarea"
       value={value}
       onValueChange={(value)=>onChange(value)}
       highlight={highlight}
-      padding={10}
+      padding={20}
       style={styles}
     />
   );

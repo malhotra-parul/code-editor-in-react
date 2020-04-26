@@ -24,7 +24,7 @@ const YourIp = () => {
       <FontAwesomeIcon
         icon={faLaptopHouse}
         color="green"
-        size="2x"
+        size="lg"
         title="Your IP"
         style={{ padding: " 0 10px" }}
       />
