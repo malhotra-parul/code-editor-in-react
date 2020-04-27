@@ -1,0 +1,37 @@
+.editor {
+    counter-reset: line;
+    border: 1px solid #ced4da;
+    width: 100%;
+    overflow: "scroll",
+
+  }
+  .light{
+      background-color: #f6f8fa;
+      color: black;
+  }
+  .dark{
+    background-color: #303133;
+    color: white;
+  }
+  .editor #codeArea {
+    outline: none;
+    padding-left: 60px !important;
+    height: "550px";
+  }
+  
+  .editor pre {
+    padding-left: 60px !important;
+  }
+  
+  .editor .editorLineNumber {
+    position: absolute;
+    left: 5px;
+    color: #cccccc;
+    text-align: left;
+    width: "auto";
+    font-weight: 100;
+    pointer-events: none;
+    user-select: none;
+    padding: 5px;
+  }
+  

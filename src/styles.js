@@ -38,7 +38,7 @@ export const ToggleInput = styled.input`
   border-radius: 50px;
   transition: background-image 0.5s;
   box-shadow: 0px 2px 5px 1px gray;
-  margin-bottom: 20px;
+  margin: 10px;
   &:checked {
     background-image: url(https://image.flaticon.com/icons/svg/2033/2033921.svg);
     transition: background-image 0.5s;
@@ -161,6 +161,7 @@ export const IDEWrapper = styled.div`
   margin: 0 auto;
   padding: 0pc;
   box-sizing: border-box;
+  box-shadow: 0 1rem 3rem rgba(0,0,0,.275)!important;
 `;
 
 export const Toolbar = styled.div`

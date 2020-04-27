@@ -27,8 +27,7 @@ const EditorExample = ({ theme, font, value, onChange, exampleCode }) => {
           
             <div {...getLineProps({ line, key: i })}>
               {line.map((token, key) => {
-         
-                return <span {...getTokenProps({ token, key })} />
+                return <span {...getTokenProps({ token, key })}></span>
           })}
             </div>
           ))}

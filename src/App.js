@@ -8,10 +8,8 @@ import {
   Toolbar,
 } from "./styles";
 import GlobalStyles from "./theme/globalStyles";
-import dark from "prism-react-renderer/themes/shadesOfPurple";
-import light from "prism-react-renderer/themes/github";
-import Editor from "./components/Editor";
 import Header from "./components/Header";
+import NewEditor from "./components/newEditor";
 import Button from "./components/Button";
 import YourIp from "./components/YourIP";
 import Font from "./fonts/fonts";
@@ -31,21 +29,15 @@ library.add(faSave, faTextHeight, faCompress, faSync, faDownload, faFont);
 var fileDownload = require('js-file-download');
 
 const exampleCode = `
-(function someDemo() {
-  var test = "Hello World!";
-  console.log(test);
- 
-})();
 
-return () => <App />;
-// Hello World!
+/* </>code */
 `;
 
 const App = () => {
   const [code, setCode] = useState(
     localStorage.getItem("myCode") || exampleCode
   );
-  const [theme, setTheme] = useState(light);
+  const [theme, setTheme] = useState("light");
   const [isReset, setIsReset] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [fontSize, setFontSize] = useState(
@@ -61,7 +53,7 @@ const App = () => {
   }, [fontSize]);
 
   const handleToggle = (e) => {
-    theme === dark ? setTheme(light) : setTheme(dark);
+    theme === "dark" ? setTheme("light") : setTheme("dark");
   };
 
   const onFontInc = () => {
@@ -85,6 +77,10 @@ const App = () => {
     fileDownload(code, 'myCode.js');
   }
 
+  const compileCode = ()=>{
+
+  }
+  // console.log(code.split("/n")); //the input to the api.
   return (
     <Container>
       <GlobalStyles />
@@ -140,7 +136,7 @@ const App = () => {
           </Sample>
         </Toolbar>
         <Wrapper >
-          <Editor
+          <NewEditor
             theme={theme}
             font={fontSize}
             value={code}
@@ -173,7 +169,7 @@ const App = () => {
             <YourIp />
           </Sample>
           <Sample>
-            <Button />
+            <Button onClick={compileCode}/>
           </Sample>
         </Toolbar>
       </IDEWrapper>
