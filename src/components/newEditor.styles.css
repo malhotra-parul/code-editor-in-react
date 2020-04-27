@@ -2,8 +2,8 @@
     counter-reset: line;
     border: 1px solid #ced4da;
     width: 100%;
-    overflow: "scroll",
-
+    overflow: "scroll";
+    font-weight: 500;
   }
   .light{
       background-color: #f6f8fa;

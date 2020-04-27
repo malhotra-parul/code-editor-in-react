@@ -15,6 +15,18 @@ export const Wrapper = styled.div`
   padding: 0;
   border: 2px solid #f6f8fa;
 `;
+export const ModifiedWrapper = styled.div`
+  font-family: sans-serif;
+  width: 100%;
+  height: "530px";
+  margin-top: 10px;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  display: flex;
+  justify-content: space-evenly;
+`;
 
 export const Pre = styled.pre`
   text-align: left;
@@ -60,6 +72,10 @@ export const ToggleInput = styled.input`
     border-radius: 50px;
     transition: all 0.5s;
   }
+
+  @media(max-width: 660px){
+    display: none;
+  }
 `;
 
 export const Sample = styled.div`
@@ -69,6 +85,11 @@ export const Sample = styled.div`
   align-items: center;
   line-height: -2;
   box-sizing: border-box;
+  @media(max-width: 660px){
+  padding: 1px;
+  justify-content: space-around;
+ 
+  }
 `;
 
 export const Image = styled.img`
@@ -160,8 +181,12 @@ export const IDEWrapper = styled.div`
   width: 80%;
   margin: 0 auto;
   padding: 0pc;
+  margin-bottom: 10px;
   box-sizing: border-box;
   box-shadow: 0 1rem 3rem rgba(0,0,0,.275)!important;
+  @media(max-width: 660px){
+    width: 95%;
+  }
 `;
 
 export const Toolbar = styled.div`
@@ -172,6 +197,12 @@ export const Toolbar = styled.div`
   padding: 0;
   margin:0;
   border: 2px solid #f6f8fa;
+  @media(max-width: 660px){
+    padding: 0;
+    justify-content: space-around;
+    height: auto;
+    width: auto;
+  }
 `;
 
 export const CompileButton = styled.button`
@@ -293,7 +324,10 @@ export const SelectLang = styled.span`
   transition: all 0.3s ease-in-out;
   &:hover{
     cursor: pointer;
-
+    @media(max-width: 660px){
+    display: none;
+    
+  }
   }
 `;
 

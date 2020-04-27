@@ -6,13 +6,15 @@ import {
   ToggleInput,
   IDEWrapper,
   Toolbar,
+  CompileButton,
+  ModifiedWrapper
 } from "./styles";
 import GlobalStyles from "./theme/globalStyles";
 import Header from "./components/Header";
 import NewEditor from "./components/newEditor";
-import Button from "./components/Button";
 import YourIp from "./components/YourIP";
 import Font from "./fonts/fonts";
+import axios from "axios";
 import Modal from "./components/Modal";
 import SelectLanguage from "./components/SelectLanguage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -43,6 +45,7 @@ const App = () => {
   const [fontSize, setFontSize] = useState(
     Number(localStorage.getItem("fontSize")) || 14
   );
+  const [isCompiled, setIsCompiled] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("myCode", code);
@@ -77,10 +80,19 @@ const App = () => {
     fileDownload(code, 'myCode.js');
   }
 
+  const input = {
+    "code" : code.split("/n")[0],
+    "lang": "js"
+  }
   const compileCode = ()=>{
+    axios.put("http://compilerapi.code.in/js", {input})
+    .then(res =>{
+      console.log(res);
+      console.log(res.data);
+    })
 
   }
-  // console.log(code.split("/n")); //the input to the api.
+  console.log(code.split("/n")[0]); //the input to the api.
   return (
     <Container>
       <GlobalStyles />
@@ -141,7 +153,6 @@ const App = () => {
             font={fontSize}
             value={code}
             onChange={(x) => setCode(x)}
-            exampleCode={exampleCode}
           />
         </Wrapper>
         <Toolbar>
@@ -168,11 +179,15 @@ const App = () => {
             </span>
             <YourIp />
           </Sample>
-          <Sample>
-            <Button onClick={compileCode}/>
-          </Sample>
         </Toolbar>
       </IDEWrapper>
+      <ModifiedWrapper>
+      <CompileButton >Upload</CompileButton>
+      <label>Command Line Arguments: <input type="checkbox" />
+      </label>
+      <CompileButton onClick={compileCode}>{isCompiled ? "Compiling..." : "Compile"}</CompileButton>
+      
+   </ModifiedWrapper>
     </Container>
   );
 };
