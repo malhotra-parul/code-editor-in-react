@@ -8,17 +8,15 @@ const EditorExample = ({ theme, font, value, onChange, exampleCode }) => {
   const styles = {
       fontSize: font,
       boxSizing: "border-box",
-      minHeight: "550px",
+      minHeight: "530px",
       width: "100%",
       resize: "none",
       overflowY: "auto",
       fontFamily: '"Dank Mono", "Fira Code", monospace',
       boxShadow: "0px 0px 18px 8px rgba(113,130,88,0.63)",
-      border: "none",
+      border: "2px solid #f6f8fa",
       ...theme.plain,
       outline: "none"
-
-  
   };
 
   const highlight = (code) => (
@@ -44,7 +42,7 @@ const EditorExample = ({ theme, font, value, onChange, exampleCode }) => {
       value={value}
       onValueChange={(value)=>onChange(value)}
       highlight={highlight}
-      padding={20}
+      padding={30}
       style={styles}
     />
   );

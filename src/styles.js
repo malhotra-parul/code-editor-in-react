@@ -9,8 +9,11 @@ export const Wrapper = styled.div`
   text-align: center;
   overflow-y: auto;
   width: 100%;
-  height: "550px";
+  height: "530px";
   resize: "none";
+  margin: 0;
+  padding: 0;
+  border: 2px solid #f6f8fa;
 `;
 
 export const Pre = styled.pre`
@@ -65,6 +68,7 @@ export const Sample = styled.div`
   justify-content: space-evenly;
   align-items: center;
   line-height: -2;
+  box-sizing: border-box;
 `;
 
 export const Image = styled.img`
@@ -155,6 +159,8 @@ export const IDEWrapper = styled.div`
   background-color: white;
   width: 80%;
   margin: 0 auto;
+  padding: 0pc;
+  box-sizing: border-box;
 `;
 
 export const Toolbar = styled.div`
@@ -162,6 +168,9 @@ export const Toolbar = styled.div`
   width: 100%;
   justify-content: space-between;
   height: 50px;
+  padding: 0;
+  margin:0;
+  border: 2px solid #f6f8fa;
 `;
 
 export const CompileButton = styled.button`
