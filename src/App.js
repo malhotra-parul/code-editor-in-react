@@ -7,7 +7,7 @@ import {
   IDEWrapper,
   Toolbar,
   StyledButton,
-  ModifiedWrapper
+  ModifiedWrapper,
 } from "./styles";
 import GlobalStyles from "./theme/globalStyles";
 import Header from "./components/Header";
@@ -17,6 +17,7 @@ import Font from "./fonts/fonts";
 import axios from "axios";
 import Modal from "./components/Modal";
 import Upload from "./components/Upload.js";
+import Output from "./components/Output";
 import SelectLanguage from "./components/SelectLanguage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave } from "@fortawesome/free-regular-svg-icons";
@@ -29,12 +30,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 library.add(faSave, faTextHeight, faCompress, faSync, faDownload, faFont);
-var fileDownload = require('js-file-download');
-var base64 = require('base-64');
+var fileDownload = require("js-file-download");
+var base64 = require("base-64");
 
 const exampleCode = `
-
-/* </>code */
+/* type your javascript code here */
 `;
 
 const App = () => {
@@ -48,6 +48,7 @@ const App = () => {
     Number(localStorage.getItem("fontSize")) || 14
   );
   const [isCompiled, setIsCompiled] = useState(false);
+  const [output, setOutput] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("myCode", code);
@@ -78,30 +79,36 @@ const App = () => {
     setIsReset(false);
     setCode(exampleCode);
   };
-  const downloadFile = ()=>{
-    fileDownload(code, 'myCode.js');
-  }
+  const downloadFile = () => {
+    fileDownload(code, "myCode.js");
+  };
 
   const input = {
     // "code" : code.split("/n")[0],
-    "code": code,
-    "lang": "js",
-	  "cInputValue": ""
-  }
-  const compileCode = ()=>{
-    axios.post("https://compilerapi.code.in/js", input)
-    .then(res =>{
+    code: code,
+    lang: "js",
+    cInputValue: "",
+  };
+  const compileCode = () => {
+    setIsCompiled(true);
+    axios.post("https://compilerapi.code.in/js", input).then((res) => {
       console.log(res);
       console.log(res.data);
-    })
-  }
+      setIsCompiled(false);
+      setOutput(true);
+    });
+  };
 
-  const handleFile = (file)=>{
+  const handleFile = (file) => {
     var encoded = file.base64[0].split("base64,")[1];
     var content = base64.decode(encoded);
     setCode(content);
-  }
-  
+  };
+
+  const handleClose = ()=>{
+      setOutput(false);
+  };
+
   return (
     <Container>
       <GlobalStyles />
@@ -156,7 +163,7 @@ const App = () => {
             </span>
           </Sample>
         </Toolbar>
-        <Wrapper >
+        <Wrapper>
           <NewEditor
             theme={theme}
             font={fontSize}
@@ -191,12 +198,15 @@ const App = () => {
         </Toolbar>
       </IDEWrapper>
       <ModifiedWrapper>
-      <Upload handleFile={handleFile}/>
-      <label>Command Line Arguments: <input type="checkbox" />
-      </label>
-      <StyledButton onClick={compileCode}>{isCompiled ? "Compiling..." : "Compile"}</StyledButton>
-      
-   </ModifiedWrapper>
+        <Upload handleFile={handleFile} />
+        <label>
+          Command Line Arguments: <input type="checkbox" />
+        </label>
+        <StyledButton onClick={compileCode}>
+          {isCompiled ? "Compiling..." : "Compile"}
+        </StyledButton>
+      </ModifiedWrapper>
+      {output && <Output handleClose={handleClose}/>}
     </Container>
   );
 };
