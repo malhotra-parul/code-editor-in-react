@@ -12,18 +12,21 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
+    "base-64": "^0.1.0",
     "js-file-download": "^0.4.11",
     "node-fetch": "^2.6.0",
     "prism-react-renderer": "^1.0.2",
     "prismjs": "^1.20.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-file-reader": "^1.1.4",
     "react-hooks-full-screen": "0.0.1",
     "react-scripts": "3.4.1",
     "react-simple-code-editor": "^0.11.0",
     "react-toggle": "^4.1.1",
     "react-toggle-component": "^3.0.8",
-    "styled-components": "^5.1.0"
+    "styled-components": "^5.1.0",
+    "utf-8": "^2.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

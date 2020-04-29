@@ -16,6 +16,7 @@ import YourIp from "./components/YourIP";
 import Font from "./fonts/fonts";
 import axios from "axios";
 import Modal from "./components/Modal";
+import ReactFileReader from "react-file-reader";
 import SelectLanguage from "./components/SelectLanguage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave } from "@fortawesome/free-regular-svg-icons";
@@ -29,6 +30,7 @@ import {
 import { library } from "@fortawesome/fontawesome-svg-core";
 library.add(faSave, faTextHeight, faCompress, faSync, faDownload, faFont);
 var fileDownload = require('js-file-download');
+var base64 = require('base-64');
 
 const exampleCode = `
 
@@ -90,8 +92,16 @@ const App = () => {
       console.log(res);
       console.log(res.data);
     })
-
   }
+
+  const handleFiles = (file)=>{
+    var encoded = file.base64[0].split("base64,")[1];
+    var content = base64.decode(encoded);
+    console.log(content);
+    setCode(content);
+  }
+
+
   console.log(code.split("/n")[0]); //the input to the api.
   return (
     <Container>
@@ -182,7 +192,9 @@ const App = () => {
         </Toolbar>
       </IDEWrapper>
       <ModifiedWrapper>
-      <CompileButton >Upload</CompileButton>
+      <ReactFileReader handleFiles={handleFiles} base64={true} fileTypes={".js"} multipleFiles={true}>
+      <button className='btn-upload'>Upload</button>
+      </ReactFileReader>
       <label>Command Line Arguments: <input type="checkbox" />
       </label>
       <CompileButton onClick={compileCode}>{isCompiled ? "Compiling..." : "Compile"}</CompileButton>
