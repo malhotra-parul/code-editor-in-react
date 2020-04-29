@@ -209,8 +209,11 @@ export const StyledButton = styled.button`
   background-color: green;
   color: white;
   font-size: 1.3em;
-  padding: 5px 35px;
+  padding: 0.3em 2em;
   font-family: "Roboto Mono", monospace;
+  @media(max-width: 500px){
+    padding: 0.2em;
+  }
 `;
 
 export const Bg = styled.div`

@@ -83,11 +83,13 @@ const App = () => {
   }
 
   const input = {
-    "code" : code.split("/n")[0],
-    "lang": "js"
+    // "code" : code.split("/n")[0],
+    "code": code,
+    "lang": "js",
+	  "cInputValue": ""
   }
   const compileCode = ()=>{
-    axios.put("http://compilerapi.code.in/js", {input})
+    axios.post("https://compilerapi.code.in/js", input)
     .then(res =>{
       console.log(res);
       console.log(res.data);
@@ -99,9 +101,7 @@ const App = () => {
     var content = base64.decode(encoded);
     setCode(content);
   }
-
-
-  console.log(code.split("/n")[0]); //the input to the api.
+  
   return (
     <Container>
       <GlobalStyles />

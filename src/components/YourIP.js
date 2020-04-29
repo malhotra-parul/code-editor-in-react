@@ -18,7 +18,7 @@ const YourIp = () => {
         throw err;
       });
   }, []);
-  console.log(data);
+
   return (
     <span>
       <FontAwesomeIcon
