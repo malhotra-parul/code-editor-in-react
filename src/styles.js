@@ -205,7 +205,7 @@ export const Toolbar = styled.div`
   }
 `;
 
-export const CompileButton = styled.button`
+export const StyledButton = styled.button`
   background-color: green;
   color: white;
   font-size: 1.3em;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CompileButton } from "../styles";
+import { StyledButton } from "../styles";
 
 const Button = () => {
 
@@ -14,9 +14,9 @@ const Button = () => {
     }
 
     return ( 
-        <CompileButton onSubmit={handleSubmit}>
+        <StyledButton onSubmit={handleSubmit}>
             {loading ? "Compiling..." : "Compile"}
-        </CompileButton>
+        </StyledButton>
      );
 }
  

@@ -6,7 +6,7 @@ import {
   ToggleInput,
   IDEWrapper,
   Toolbar,
-  CompileButton,
+  StyledButton,
   ModifiedWrapper
 } from "./styles";
 import GlobalStyles from "./theme/globalStyles";
@@ -16,7 +16,7 @@ import YourIp from "./components/YourIP";
 import Font from "./fonts/fonts";
 import axios from "axios";
 import Modal from "./components/Modal";
-import ReactFileReader from "react-file-reader";
+import Upload from "./components/Upload.js";
 import SelectLanguage from "./components/SelectLanguage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave } from "@fortawesome/free-regular-svg-icons";
@@ -94,10 +94,9 @@ const App = () => {
     })
   }
 
-  const handleFiles = (file)=>{
+  const handleFile = (file)=>{
     var encoded = file.base64[0].split("base64,")[1];
     var content = base64.decode(encoded);
-    console.log(content);
     setCode(content);
   }
 
@@ -192,12 +191,10 @@ const App = () => {
         </Toolbar>
       </IDEWrapper>
       <ModifiedWrapper>
-      <ReactFileReader handleFiles={handleFiles} base64={true} fileTypes={".js"} multipleFiles={true}>
-      <button className='btn-upload'>Upload</button>
-      </ReactFileReader>
+      <Upload handleFile={handleFile}/>
       <label>Command Line Arguments: <input type="checkbox" />
       </label>
-      <CompileButton onClick={compileCode}>{isCompiled ? "Compiling..." : "Compile"}</CompileButton>
+      <StyledButton onClick={compileCode}>{isCompiled ? "Compiling..." : "Compile"}</StyledButton>
       
    </ModifiedWrapper>
     </Container>
