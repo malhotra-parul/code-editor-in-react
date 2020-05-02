@@ -6,9 +6,8 @@ const Upload = ({ handleFile, language }) => {
   const handleFiles = (file) => {
     handleFile(file);
   };
-  console.log(language);
+  
   const filetype = (language === "js") ? "js" : "py";
-  console.log(filetype);
 
   return (
     <ReactFileReader

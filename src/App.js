@@ -13,7 +13,7 @@ import {
   HiddenCheckbox,
   StyledCheckbox,
   Icon,
-  TextArea
+  TextArea,
 } from "./styles";
 import GlobalStyles from "./theme/globalStyles";
 import Header from "./components/Header";
@@ -39,10 +39,6 @@ library.add(faSave, faTextHeight, faCompress, faSync, faDownload, faFont);
 var fileDownload = require("js-file-download");
 var base64 = require("base-64");
 
-const exampleCode = `
-/* type your javascript code here */
-`;
-
 const Checkbox = ({ className, checked, ...props }) => (
   <CheckboxContainer className={className}>
     <HiddenCheckbox checked={checked} {...props} />
@@ -55,9 +51,16 @@ const Checkbox = ({ className, checked, ...props }) => (
 );
 
 const App = () => {
-  const [code, setCode] = useState(
-    localStorage.getItem("myCode") || exampleCode
+  const [jsCode, setJsCode] = useState(
+    localStorage.getItem("jsCode") || `/* type your js code here */`
   );
+  const [pyCode, setPyCode] = useState(
+    localStorage.getItem("pyCode") || `#type your python code here`
+  );
+
+  // const [code, setCode] = useState(
+  //   localStorage.getItem("myCode") || exampleCode
+  // );
   const [theme, setTheme] = useState("light");
   const [isReset, setIsReset] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -72,8 +75,12 @@ const App = () => {
   const [language, setLanguage] = useState("js");
 
   useEffect(() => {
-    localStorage.setItem("myCode", code);
-  }, [code]);
+    localStorage.setItem("jscode", jsCode);
+  }, [jsCode]);
+
+  useEffect(() => {
+    localStorage.setItem("pycode", pyCode);
+  }, [pyCode]);
 
   useEffect(() => {
     localStorage.setItem("fontSize", fontSize);
@@ -86,10 +93,12 @@ const App = () => {
   const onFontInc = () => {
     fontSize === 26 ? setFontSize(14) : setFontSize(fontSize + 2);
   };
+
   const handleReset = (e) => {
     e.preventDefault();
     setIsModalOpen(true);
     setIsReset(true);
+    setOutput(false);
   };
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -98,26 +107,30 @@ const App = () => {
   const handleDelete = () => {
     setIsModalOpen(false);
     setIsReset(false);
-    setCode(exampleCode);
+    language === "js"
+      ? setJsCode(`/* type your js code here */`)
+      : setPyCode(`#type your python code here`);
   };
   const downloadFile = () => {
-    fileDownload(code, `myCode.${language === "js"? "js": "py"}`);
+    fileDownload(
+      language === "js" ? jsCode : pyCode,
+      `myCode.${language === "js" ? "js" : "py"}`
+    );
   };
 
-  const handleLangChange = (lang)=>{
-    setLanguage(lang);    
-  }
+  const handleLangChange = (lang) => {
+    setLanguage(lang);
+  };
 
   const input = {
     // "code" : code.split("/n")[0],
-    code: code, 
+    code: language === "js" ? jsCode : pyCode,
     lang: language === "js" ? "js" : "py",
     cInputValue: commandLineInput,
   };
   const compileCode = () => {
     setIsCompiled(true);
     axios.post(`https://compilerapi.code.in/${language}`, input).then((res) => {
-      console.log(res.data);
       setOutputResponse(res.data);
       setIsCompiled(false);
       setOutput(true);
@@ -127,7 +140,9 @@ const App = () => {
   const handleFile = (file) => {
     var encoded = file.base64[0].split("base64,")[1];
     var content = base64.decode(encoded);
-    setCode(content);
+    language === "js" ?
+    setJsCode(content) :
+    setPyCode(content)
   };
 
   const handleClose = () => {
@@ -184,8 +199,10 @@ const App = () => {
               />
             </span>
             <span>
-              <SelectLanguage language={language}
-                              handleLangChange={handleLangChange}/>
+              <SelectLanguage
+                language={language}
+                handleLangChange={handleLangChange}
+              />
             </span>
           </Sample>
         </Toolbar>
@@ -193,9 +210,9 @@ const App = () => {
           <NewEditor
             theme={theme}
             font={fontSize}
-            value={code}
+            value={language === "js" ? jsCode : pyCode}
             lang={language}
-            onChange={(x) => setCode(x)}
+            onChange={language === "js" ? (x) => setJsCode(x) : (x) => setPyCode(x)}
           />
         </Wrapper>
         <Toolbar>
@@ -236,13 +253,13 @@ const App = () => {
             <span style={{ color: "green" }}> Command Line Arguments</span>
           </label>
         </div>
-        
+
         <StyledButton onClick={compileCode}>
           {isCompiled ? "Compiling..." : "Compile"}
         </StyledButton>
       </ModifiedWrapper>
       {commandLineArgs && (
-        <IDEWrapper style={{marginBottom: "40px"}}>
+        <IDEWrapper style={{ marginBottom: "40px" }}>
           <TextArea
             rows="5"
             placeholder="Give input seperated by spaces"
