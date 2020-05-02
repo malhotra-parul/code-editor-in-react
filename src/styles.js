@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  margin: 0;
+  margin: 0 0 5rem 0;
 `;
 
 export const Wrapper = styled.div`
@@ -410,4 +410,12 @@ export const Values = styled.span`
   font-family: sans-serif;
   color: black;
   font-weight: 400;
+`;
+
+export const Copyright = styled.div`
+  margin: 40px;
+  color: green;
+  font-weight: 500;
+  font-size: 20px;
+  text-align: center;
 `;

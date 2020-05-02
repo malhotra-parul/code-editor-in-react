@@ -8,6 +8,7 @@ import {
   Toolbar,
   StyledButton,
   ModifiedWrapper,
+  Copyright
 } from "./styles";
 import GlobalStyles from "./theme/globalStyles";
 import Header from "./components/Header";
@@ -106,8 +107,8 @@ const App = () => {
     setCode(content);
   };
 
-  const handleClose = ()=>{
-      setOutput(false);
+  const handleClose = () => {
+    setOutput(false);
   };
 
   return (
@@ -207,10 +208,12 @@ const App = () => {
           {isCompiled ? "Compiling..." : "Compile"}
         </StyledButton>
       </ModifiedWrapper>
-      {output && <Output outputResponse={outputResponse} handleClose={handleClose}/>}
+      {output && (
+        <Output outputResponse={outputResponse} handleClose={handleClose} />
+      )}
+      <Copyright>© CODE.IN</Copyright>
     </Container>
   );
 };
 
 export default App;
-
