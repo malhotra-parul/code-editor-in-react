@@ -8,7 +8,13 @@ import {
   Toolbar,
   StyledButton,
   ModifiedWrapper,
-  Copyright
+  Copyright,
+  CheckboxContainer,
+  HiddenCheckbox,
+  StyledCheckbox,
+  Icon,
+  TextArea,
+  OutputBody,
 } from "./styles";
 import GlobalStyles from "./theme/globalStyles";
 import Header from "./components/Header";
@@ -38,6 +44,17 @@ const exampleCode = `
 /* type your javascript code here */
 `;
 
+const Checkbox = ({ className, checked, ...props }) => (
+  <CheckboxContainer className={className}>
+    <HiddenCheckbox checked={checked} {...props} />
+    <StyledCheckbox checked={checked}>
+      <Icon viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12" />
+      </Icon>
+    </StyledCheckbox>
+  </CheckboxContainer>
+);
+
 const App = () => {
   const [code, setCode] = useState(
     localStorage.getItem("myCode") || exampleCode
@@ -51,6 +68,8 @@ const App = () => {
   const [isCompiled, setIsCompiled] = useState(false);
   const [output, setOutput] = useState(false);
   const [outputResponse, setOutputResponse] = useState(null);
+  const [commandLineArgs, setCommandLineArgs] = useState(false);
+  const [commandLineInput, setcommandLineInput] = useState("");
 
   useEffect(() => {
     localStorage.setItem("myCode", code);
@@ -89,7 +108,7 @@ const App = () => {
     // "code" : code.split("/n")[0],
     code: code,
     lang: "js",
-    cInputValue: "",
+    cInputValue: commandLineInput,
   };
   const compileCode = () => {
     setIsCompiled(true);
@@ -201,13 +220,31 @@ const App = () => {
       </IDEWrapper>
       <ModifiedWrapper>
         <Upload handleFile={handleFile} />
-        <label>
-          Command Line Arguments: <input type="checkbox" />
-        </label>
+        <div>
+          <label>
+            <Checkbox
+              type="checkbox"
+              checked={commandLineArgs}
+              onChange={(e) => setCommandLineArgs(!commandLineArgs)}
+            />
+            <span style={{ color: "green" }}> Command Line Arguments</span>
+          </label>
+        </div>
+        
         <StyledButton onClick={compileCode}>
           {isCompiled ? "Compiling..." : "Compile"}
         </StyledButton>
       </ModifiedWrapper>
+      {commandLineArgs && (
+        <IDEWrapper style={{marginBottom: "40px"}}>
+          <TextArea
+            rows="5"
+            placeholder="Give input seperated by spaces"
+            value={commandLineInput}
+            onChange={(e) => setcommandLineInput(e.target.value)}
+          />
+        </IDEWrapper>
+      )}
       {output && (
         <Output outputResponse={outputResponse} handleClose={handleClose} />
       )}
