@@ -13,8 +13,7 @@ import {
   HiddenCheckbox,
   StyledCheckbox,
   Icon,
-  TextArea,
-  OutputBody,
+  TextArea
 } from "./styles";
 import GlobalStyles from "./theme/globalStyles";
 import Header from "./components/Header";
@@ -102,7 +101,7 @@ const App = () => {
     setCode(exampleCode);
   };
   const downloadFile = () => {
-    fileDownload(code, "myCode.js");
+    fileDownload(code, `myCode.${language === "js"? "js": "py"}`);
   };
 
   const handleLangChange = (lang)=>{
@@ -226,7 +225,7 @@ const App = () => {
         </Toolbar>
       </IDEWrapper>
       <ModifiedWrapper>
-        <Upload handleFile={handleFile} />
+        <Upload handleFile={handleFile} language={language} />
         <div>
           <label>
             <Checkbox
