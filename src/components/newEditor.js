@@ -4,11 +4,15 @@ import Editor from "react-simple-code-editor";
 import { highlight, languages } from "prismjs/components/prism-core";
 import "prismjs/components/prism-clike";
 import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-python";
 import "prismjs/themes/prism-tomorrow.css";
 
 
 
-const NewEditor = ({ theme, font, value, onChange })=>{
+const NewEditor = ({ lang, theme, font, value, onChange })=>{
+
+  if(lang === "js") lang="js";
+  if(lang === "py2" || lang === "py3") lang = "py";
     
     const hightlightWithLineNumbers = (input, language) =>
   highlight(input, language)

@@ -70,6 +70,7 @@ const App = () => {
   const [outputResponse, setOutputResponse] = useState(null);
   const [commandLineArgs, setCommandLineArgs] = useState(false);
   const [commandLineInput, setcommandLineInput] = useState("");
+  const [language, setLanguage] = useState("js");
 
   useEffect(() => {
     localStorage.setItem("myCode", code);
@@ -104,15 +105,19 @@ const App = () => {
     fileDownload(code, "myCode.js");
   };
 
+  const handleLangChange = (lang)=>{
+    setLanguage(lang);    
+  }
+
   const input = {
     // "code" : code.split("/n")[0],
-    code: code,
-    lang: "js",
+    code: code, 
+    lang: language === "js" ? "js" : "py",
     cInputValue: commandLineInput,
   };
   const compileCode = () => {
     setIsCompiled(true);
-    axios.post("https://compilerapi.code.in/js", input).then((res) => {
+    axios.post(`https://compilerapi.code.in/${language}`, input).then((res) => {
       console.log(res.data);
       setOutputResponse(res.data);
       setIsCompiled(false);
@@ -180,7 +185,8 @@ const App = () => {
               />
             </span>
             <span>
-              <SelectLanguage />
+              <SelectLanguage language={language}
+                              handleLangChange={handleLangChange}/>
             </span>
           </Sample>
         </Toolbar>
@@ -189,6 +195,7 @@ const App = () => {
             theme={theme}
             font={fontSize}
             value={code}
+            lang={language}
             onChange={(x) => setCode(x)}
           />
         </Wrapper>
