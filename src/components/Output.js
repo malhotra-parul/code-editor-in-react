@@ -57,7 +57,7 @@ const Output = ({ handleClose, outputResponse }) => {
         <h3>Error</h3>
         <TextArea error rows="5" readOnly value={stderr} />    
       </OutputBody>:
-      err ? 
+      err.signal ? 
       <OutputBody>
       <h3>RunTime Error</h3>
       <TextArea error rows="5" readOnly value={err.signal} />    
