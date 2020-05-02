@@ -49,6 +49,7 @@ const App = () => {
   );
   const [isCompiled, setIsCompiled] = useState(false);
   const [output, setOutput] = useState(false);
+  const [outputResponse, setOutputResponse] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("myCode", code);
@@ -92,8 +93,8 @@ const App = () => {
   const compileCode = () => {
     setIsCompiled(true);
     axios.post("https://compilerapi.code.in/js", input).then((res) => {
-      console.log(res);
       console.log(res.data);
+      setOutputResponse(res.data);
       setIsCompiled(false);
       setOutput(true);
     });
@@ -206,17 +207,10 @@ const App = () => {
           {isCompiled ? "Compiling..." : "Compile"}
         </StyledButton>
       </ModifiedWrapper>
-      {output && <Output handleClose={handleClose}/>}
+      {output && <Output outputResponse={outputResponse} handleClose={handleClose}/>}
     </Container>
   );
 };
 
 export default App;
 
-// // API response to fetch new div
-// {
-// //   "output":"hello world",
-// //    "status" : 1,
-// //     "time":"1.233 ms",
-// //     "memory": "5 KB"
-// //  }

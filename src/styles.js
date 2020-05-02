@@ -19,7 +19,7 @@ export const ModifiedWrapper = styled.div`
   font-family: sans-serif;
   width: 100%;
   height: "530px";
-  margin-top: 10px;
+  margin: 30px;
   padding: 0;
   border: none;
   background-color: transparent;
@@ -73,7 +73,7 @@ export const ToggleInput = styled.input`
     transition: all 0.5s;
   }
 
-  @media(max-width: 660px){
+  @media (max-width: 660px) {
     display: none;
   }
 `;
@@ -85,10 +85,9 @@ export const Sample = styled.div`
   align-items: center;
   line-height: -2;
   box-sizing: border-box;
-  @media(max-width: 660px){
-  padding: 1px;
-  justify-content: space-around;
- 
+  @media (max-width: 660px) {
+    padding: 1px;
+    justify-content: space-around;
   }
 `;
 
@@ -183,8 +182,8 @@ export const IDEWrapper = styled.div`
   padding: 0pc;
   margin-bottom: 10px;
   box-sizing: border-box;
-  box-shadow: 0 1rem 3rem rgba(0,0,0,.275)!important;
-  @media(max-width: 660px){
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.275) !important;
+  @media (max-width: 660px) {
     width: 95%;
   }
 `;
@@ -195,9 +194,9 @@ export const Toolbar = styled.div`
   justify-content: space-between;
   height: 50px;
   padding: 0;
-  margin:0;
+  margin: 0;
   border: 2px solid #f6f8fa;
-  @media(max-width: 660px){
+  @media (max-width: 660px) {
     padding: 0;
     justify-content: space-around;
     height: auto;
@@ -211,8 +210,11 @@ export const StyledButton = styled.button`
   font-size: 1.3em;
   padding: 0.3em 2em;
   font-family: "Roboto Mono", monospace;
-  @media(max-width: 500px){
+  @media (max-width: 500px) {
     padding: 0.2em;
+  }
+  &:focus{
+    outline: none;
   }
 `;
 
@@ -227,12 +229,9 @@ export const Bg = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  visibility: ${props =>
-    props.isModalOpen === true ? "visible" : "hidden"};
-  opacity: ${props =>
-    props.isModalOpen === true ? "1" : "0"};
+  visibility: ${(props) => (props.isModalOpen === true ? "visible" : "hidden")};
+  opacity: ${(props) => (props.isModalOpen === true ? "1" : "0")};
   transition: visibility 0s, opacity 0.5s;
-
 `;
 
 export const PopUp = styled.div`
@@ -252,7 +251,7 @@ export const PopUp = styled.div`
   box-shadow: 5px 5px 5px 0px #c6c2c2;
   transition: all 0.6s;
 
-  @media(max-width: 660px){
+  @media (max-width: 660px) {
     padding: 2px;
     width: 90%;
   }
@@ -260,7 +259,7 @@ export const PopUp = styled.div`
 
 export const Tip = styled.p`
   color: #c6c2c2;
-  @media(max-width: 660px){
+  @media (max-width: 660px) {
     font-size: 14px;
   }
 `;
@@ -269,7 +268,7 @@ export const ImageHolder = styled.div`
   padding: 15px;
   border-radius: 70px;
   z-index: 1;
-  @media(max-width: 660px){
+  @media (max-width: 660px) {
     padding: 2px;
   }
 `;
@@ -282,12 +281,12 @@ export const DivHolder = styled.div`
 export const Img = styled.img`
   height: 60px;
   width: auto;
-  @media(max-width: 660px){
+  @media (max-width: 660px) {
     height: 50px;
   }
 `;
 
-export const ButtonHolder= styled.div`
+export const ButtonHolder = styled.div`
   width: 70%;
   display: flex;
   justify-content: space-evenly;
@@ -306,16 +305,16 @@ export const ModalBtn = styled.button`
   font-weight: bold;
   letter-spacing: 0.8px;
   margin: 10px;
-  &:active{
-  box-shadow: none;
-  transform: translate(0, 5px);
-  transition: all 0.2s;
+  &:active {
+    box-shadow: none;
+    transform: translate(0, 5px);
+    transition: all 0.2s;
 
-  @media(max-width: 660px){
-    padding: 5px 10px;
+    @media (max-width: 660px) {
+      padding: 5px 10px;
+    }
   }
-  }
-  &:focus{
+  &:focus {
     outline: none;
   }
 `;
@@ -344,21 +343,71 @@ export const SelectLang = styled.select`
   background-repeat: no-repeat, repeat;
   background-position: right 0.7em top 50%, 0 0;
   background-size: 0.65em auto, 100%;
-  &::-ms-expand{
+  &::-ms-expand {
     display: none;
   }
-  &:hover{
+  &:hover {
     border-color: #888;
   }
-  &:focus{
-  border-color: #aaa;
-  box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
-  box-shadow: 0 0 0 3px -moz-mac-focusring;
-  color: #222;
-  outline: none;
+  &:focus {
+    border-color: #aaa;
+    box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #222;
+    outline: none;
   }
-  & option{
+  & option {
     font-weight: normal;
   }
 `;
 
+export const OutputHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 90%;
+  margin: 20px;
+  margin-bottom: 0;
+  box-sizing: border-box;
+  color: green;
+  font-weight: 600;
+`;
+
+export const OutputBody = styled.div`
+  width: 90%;
+  color: green;
+  font-weight: 600;
+  margin: 30px;
+  margin-top: 0;
+  box-sizing: border-box;
+`;
+
+export const TextArea = styled.textarea`
+  box-sizing: border-box;
+  resize: none;
+  background-color: beige;
+  height: auto;
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  overflow: auto;
+  cursor: text;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  &:focus{
+    outline: none;
+  }
+`;
+
+export const Values = styled.span`
+  font-family: sans-serif;
+  color: black;
+  font-weight: 400;
+`;
