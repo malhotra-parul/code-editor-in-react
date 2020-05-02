@@ -385,7 +385,7 @@ export const OutputBody = styled.div`
 export const TextArea = styled.textarea`
   box-sizing: border-box;
   resize: none;
-  background-color: beige;
+  background-color: ${props => props.error ? "#fbe4e1" : "beige"};
   height: auto;
   display: block;
   width: 100%;
