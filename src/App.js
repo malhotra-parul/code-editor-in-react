@@ -51,16 +51,15 @@ const Checkbox = ({ className, checked, ...props }) => (
 );
 
 const App = () => {
-  const [jsCode, setJsCode] = useState(
-    localStorage.getItem("jsCode") || `/* type your js code here */`
+  const [code, setCode] = useState(
+    localStorage.getItem("myCode") || "//Write your Javascript code here!"
   );
-  const [pyCode, setPyCode] = useState(
-    localStorage.getItem("pyCode") || `#type your python code here`
+  const [js, setJs] = useState(
+    localStorage.getItem("js") || "//Write your Javascript code here!"
   );
-
-  // const [code, setCode] = useState(
-  //   localStorage.getItem("myCode") || exampleCode
-  // );
+  const [py, setPy] = useState(
+    localStorage.getItem("py") || "#Write your Python code here!"
+  );
   const [theme, setTheme] = useState("light");
   const [isReset, setIsReset] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -75,12 +74,10 @@ const App = () => {
   const [language, setLanguage] = useState("js");
 
   useEffect(() => {
-    localStorage.setItem("jscode", jsCode);
-  }, [jsCode]);
-
-  useEffect(() => {
-    localStorage.setItem("pycode", pyCode);
-  }, [pyCode]);
+    localStorage.setItem("myCode", code);
+    localStorage.setItem("py", py);
+    localStorage.setItem("js", js);
+  }, [code, py, js]);
 
   useEffect(() => {
     localStorage.setItem("fontSize", fontSize);
@@ -98,7 +95,6 @@ const App = () => {
     e.preventDefault();
     setIsModalOpen(true);
     setIsReset(true);
-    setOutput(false);
   };
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -107,24 +103,50 @@ const App = () => {
   const handleDelete = () => {
     setIsModalOpen(false);
     setIsReset(false);
-    language === "js"
-      ? setJsCode(`/* type your js code here */`)
-      : setPyCode(`#type your python code here`);
+    setOutput(false);
+
+    if (language === "js") {
+      setCode("//Type your javascript code here");
+      setJs("//Type your javascript code here");
+    } else if (language === "py3" || language === "py2") {
+      setCode("#Type your python code here");
+      setPy("#Type your python code here");
+    }
   };
   const downloadFile = () => {
-    fileDownload(
-      language === "js" ? jsCode : pyCode,
-      `myCode.${language === "js" ? "js" : "py"}`
-    );
+    fileDownload(code, `myCode.${language === "js" ? "js" : "py"}`);
   };
 
+  const onEditorChange = (x) => {
+    setCode(x);
+    if (language === "py3") {
+      setPy(x);
+    } else if (language === "js") {
+      setJs(x);
+    } else if (language === "py2") {
+      setPy(x);
+    }
+  };
   const handleLangChange = (lang) => {
     setLanguage(lang);
+    if (lang === "js") {
+      if (code !== js) {
+        setCode(js);
+      } else {
+        setCode("//type your javascript code here");
+      }
+    } else if (lang === "py3" || lang === "py2") {
+      if (code !== py) {
+        setCode(py);
+      } else {
+        setCode("#type your python code here");
+      }
+    }
   };
 
   const input = {
     // "code" : code.split("/n")[0],
-    code: language === "js" ? jsCode : pyCode,
+    code: code,
     lang: language === "js" ? "js" : "py",
     cInputValue: commandLineInput,
   };
@@ -140,9 +162,7 @@ const App = () => {
   const handleFile = (file) => {
     var encoded = file.base64[0].split("base64,")[1];
     var content = base64.decode(encoded);
-    language === "js" ?
-    setJsCode(content) :
-    setPyCode(content)
+    setCode(content);
   };
 
   const handleClose = () => {
@@ -210,9 +230,9 @@ const App = () => {
           <NewEditor
             theme={theme}
             font={fontSize}
-            value={language === "js" ? jsCode : pyCode}
+            value={code}
             lang={language}
-            onChange={language === "js" ? (x) => setJsCode(x) : (x) => setPyCode(x)}
+            onChange={onEditorChange}
           />
         </Wrapper>
         <Toolbar>

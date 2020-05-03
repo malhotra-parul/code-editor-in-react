@@ -22,6 +22,7 @@ const NewEditor = ({ lang, theme, font, value, onChange })=>{
 
   return (
     <Editor
+      placeholder={`Enter your ${lang} code here!`}
       value={value}
       onValueChange={value => onChange(value)}
       highlight={code => hightlightWithLineNumbers(code, languages.js)}
