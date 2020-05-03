@@ -71,13 +71,15 @@ const App = () => {
   const [outputResponse, setOutputResponse] = useState(null);
   const [commandLineArgs, setCommandLineArgs] = useState(false);
   const [commandLineInput, setcommandLineInput] = useState("");
-  const [language, setLanguage] = useState("js");
+  const [language, setLanguage] = useState(localStorage.getItem("lang") || "js");
 
   useEffect(() => {
     localStorage.setItem("myCode", code);
     localStorage.setItem("py", py);
     localStorage.setItem("js", js);
-  }, [code, py, js]);
+    localStorage.setItem("lang", language)
+  }, [code, py, js, language]);
+
 
   useEffect(() => {
     localStorage.setItem("fontSize", fontSize);
