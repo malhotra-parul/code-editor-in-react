@@ -163,6 +163,13 @@ const App = () => {
     var encoded = file.base64[0].split("base64,")[1];
     var content = base64.decode(encoded);
     setCode(content);
+    if (language === "py3") {
+      setPy(content);
+    } else if (language === "js") {
+      setJs(content);
+    } else if (language === "py2") {
+      setPy(content);
+    }
   };
 
   const handleClose = () => {
