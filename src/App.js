@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Container,
   Wrapper,
@@ -14,17 +14,17 @@ import {
   StyledCheckbox,
   Icon,
   TextArea,
+  SelectLang,
 } from "./styles";
 import GlobalStyles from "./theme/globalStyles";
 import Header from "./components/Header";
-import NewEditor from "./components/newEditor";
+import { ControlledEditor, monaco } from "@monaco-editor/react";
 import YourIp from "./components/YourIP";
 import Font from "./fonts/fonts";
 import axios from "axios";
 import Modal from "./components/Modal";
 import Upload from "./components/Upload.js";
 import Output from "./components/Output";
-import SelectLanguage from "./components/SelectLanguage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -55,7 +55,7 @@ const App = () => {
     localStorage.getItem("myCode") || "//Write your Javascript code here!"
   );
   const [js, setJs] = useState(
-    localStorage.getItem("js") || "//Write your Javascript code here!"
+    localStorage.getItem("js") || "//Hey! Write your Javascript code here!"
   );
   const [py, setPy] = useState(
     localStorage.getItem("py") || "#Write your Python code here!"
@@ -71,19 +71,16 @@ const App = () => {
   const [outputResponse, setOutputResponse] = useState(null);
   const [commandLineArgs, setCommandLineArgs] = useState(false);
   const [commandLineInput, setcommandLineInput] = useState("");
-  const [language, setLanguage] = useState(localStorage.getItem("lang") || "js");
+  const [lang, setLang] = useState("javascript");
+  const editorRef = useRef();
+  const valueGetter = useRef();
 
   useEffect(() => {
     localStorage.setItem("myCode", code);
     localStorage.setItem("py", py);
     localStorage.setItem("js", js);
-    localStorage.setItem("lang", language)
-  }, [code, py, js, language]);
-
-
-  useEffect(() => {
     localStorage.setItem("fontSize", fontSize);
-  }, [fontSize]);
+  }, [code, py, js, fontSize]);
 
   const handleToggle = (e) => {
     theme === "dark" ? setTheme("light") : setTheme("dark");
@@ -107,70 +104,112 @@ const App = () => {
     setIsReset(false);
     setOutput(false);
 
-    if (language === "js") {
+    if (lang === "javascript") {
+      console.log("handleDelete - js");
       setCode("//Type your javascript code here");
       setJs("//Type your javascript code here");
-    } else if (language === "py3" || language === "py2") {
+    } else if (lang === "python") {
+      console.log("handleDelete - py");
       setCode("#Type your python code here");
       setPy("#Type your python code here");
     }
   };
+
   const downloadFile = () => {
-    fileDownload(code, `myCode.${language === "js" ? "js" : "py"}`);
+    fileDownload(code, `myCode.${lang === "javascript" ? "js" : "py"}`);
   };
 
-  const onEditorChange = (x) => {
-    setCode(x);
-    if (language === "py3") {
-      setPy(x);
-    } else if (language === "js") {
-      setJs(x);
-    } else if (language === "py2") {
-      setPy(x);
+  const onLoad = (_value, editor) => {
+    setCode(js);
+    valueGetter.current = _value;
+    // console.log(valueGetter.current()); // holds value of editor
+    editorRef.current = editor;
+    // console.log(editorRef.current);
+    // editor.onDidChangeModelLanguage()
+    editor.onDidChangeCursorPosition((e) => {
+      const position = e.position;
+      const { lineNumber, column } = position;
+      console.log(lineNumber, column);
+    });
+    monaco
+      .init()
+      .then((monaco) => {
+        editor.addCommand(
+          monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S,
+          function () {
+            alert("YOu are trying ot save the file!");
+          }
+        );
+        editor.addCommand(
+          monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_D,
+          function () {
+            alert("Do you wish to download file?");
+          }
+        );
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const onChange = (event, newValue) => {
+    setCode(newValue);
+
+    if (lang === "python") {
+      setPy(newValue);
+    } else if (lang === "javascript") {
+      setJs(newValue);
     }
   };
-  const handleLangChange = (lang) => {
-    setLanguage(lang);
-    if (lang === "js") {
-      if (code !== js) {
-        setCode(js);
-      } else {
-        setCode("//type your javascript code here");
+
+  const handleLanguageChange = (e) => {
+    setLang(e.target.value);
+      if(e.target.value === "javascript" ){
+        
+        if(code !== js){
+          setCode(js);
+        }else{
+          setCode("//type your javascript code here");
+        }
+      } else if (e.target.value === "python" ){
+
+        if(code !== py){
+          setCode(py);
+        }else{
+          setCode("#type your python code here");
+        }
       }
-    } else if (lang === "py3" || lang === "py2") {
-      if (code !== py) {
-        setCode(py);
-      } else {
-        setCode("#type your python code here");
-      }
-    }
   };
 
   const input = {
     // "code" : code.split("/n")[0],
     code: code,
-    lang: language === "js" ? "js" : "py",
+    lang: lang === "javascript" ? "js" : "py",
     cInputValue: commandLineInput,
   };
+
   const compileCode = () => {
     setIsCompiled(true);
-    axios.post(`https://compilerapi.code.in/${language}`, input).then((res) => {
-      setOutputResponse(res.data);
-      setIsCompiled(false);
-      setOutput(true);
-    });
+    axios
+      .post(
+        `https://compilerapi.code.in/${
+          lang === "javascript" ? "js" : "py3"
+        }`,
+        input
+      )
+      .then((res) => {
+        setOutputResponse(res.data);
+        setIsCompiled(false);
+        setOutput(true);
+      });
   };
 
   const handleFile = (file) => {
     var encoded = file.base64[0].split("base64,")[1];
     var content = base64.decode(encoded);
     setCode(content);
-    if (language === "py3") {
+    if (lang === "python") {
       setPy(content);
-    } else if (language === "js") {
+    } else if (lang === "javascript") {
       setJs(content);
-    } else if (language === "py2") {
-      setPy(content);
     }
   };
 
@@ -228,20 +267,34 @@ const App = () => {
               />
             </span>
             <span>
-              <SelectLanguage
-                language={language}
-                handleLangChange={handleLangChange}
-              />
+              <SelectLang value={lang} onChange={handleLanguageChange}>
+                <option value="javascript">Javascript(Node)</option>
+                <option value="python">Python 3</option>
+              </SelectLang>
             </span>
           </Sample>
         </Toolbar>
         <Wrapper>
-          <NewEditor
+          <ControlledEditor
+            height="64vh"
+            width="80vw"
             theme={theme}
-            font={fontSize}
+            onChange={onChange}
             value={code}
-            lang={language}
-            onChange={onEditorChange}
+            language={lang}
+            editorDidMount={onLoad}
+            options={{
+              fontSize: fontSize,
+              smoothScrolling: true,
+              scrollbar: {
+                vertical: "visible",
+                horizontal: "visible",
+                verticalScrollbarSize: 17,
+                horizontalScrollbarSize: 17,
+                verticalHasArrows: true,
+                horizontalHasArrows: true,
+              },
+            }}
           />
         </Wrapper>
         <Toolbar>
@@ -271,7 +324,7 @@ const App = () => {
         </Toolbar>
       </IDEWrapper>
       <ModifiedWrapper>
-        <Upload handleFile={handleFile} language={language} />
+        <Upload handleFile={handleFile} language={lang} />
         <div>
           <label>
             <Checkbox

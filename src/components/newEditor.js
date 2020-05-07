@@ -9,7 +9,7 @@ import "prismjs/themes/prism-tomorrow.css";
 
 
 
-const NewEditor = ({ lang, theme, font, value, onChange })=>{
+const NewEditor = ({ lang, theme, font, value, onEditorChange })=>{
 
   if(lang === "js") lang="js";
   if(lang === "py2" || lang === "py3") lang = "py";
@@ -24,7 +24,7 @@ const NewEditor = ({ lang, theme, font, value, onChange })=>{
     <Editor
       placeholder={`Enter your ${lang} code here!`}
       value={value}
-      onValueChange={value => onChange(value)}
+      onValueChange={value => onEditorChange(value)}
       highlight={code => hightlightWithLineNumbers(code, languages.js)}
       padding={10}
       textareaId="codeArea"
