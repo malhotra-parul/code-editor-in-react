@@ -80,6 +80,12 @@ const App = () => {
 
   const onChange = (e, newValue) => {
     setCode(newValue);
+    setAutosave('Saving ...');
+		setTimeout(() => {
+			setAutosave('Saved');
+		}, 2000);
+  
+    // setAutosave("Saved");
   };
 
   const resetTimeout = (id, newId)=>{
@@ -252,14 +258,8 @@ const App = () => {
             />
           </Sample>
           <Sample>
-            <span>
-              <FontAwesomeIcon
-                icon={faSave}
-                color="green"
-                size="lg"
-                title="Autosaved"
-                style={{ padding: "10px" }}
-              />
+            <span style={{padding: "0 10px"}}>
+              {autosave}
             </span>
             <span>
               <FontAwesomeIcon
