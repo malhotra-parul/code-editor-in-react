@@ -22,33 +22,23 @@ const MonacoEditor = ({value, onEditorChange, lang, font, theme, onLoad}) => {
             height="64vh"
             width="80vw"
             theme={theme}
-            scrollbar ={{
-                vertical: "visible",
-                horizontal: "visible",
-                verticalScrollbarSize: 17,
-                horizontalScrollbarSize: 17,
-                verticalHasArrows: true,
-                horizontalHasArrows: true
-}}          
             onChange={onChangeEditor}
             value={value}
             language={lang}
             editorDidMount={handleEditorMount}
             options={{
-                fontSize: font,
-                smoothScrolling: true,
-                scrollbar:{
-                    vertical: "visible",
-                    horizontal: "visible",
-                    verticalScrollbarSize: 17,
-                    horizontalScrollbarSize: 17,
-                    verticalHasArrows: true,
-                    horizontalHasArrows: true
-                }
-                
-                
+              fontSize: font,
+              smoothScrolling: true,
+              scrollbar: {
+                vertical: "visible",
+                horizontal: "visible",
+                verticalScrollbarSize: 17,
+                horizontalScrollbarSize: 17,
+                verticalHasArrows: true,
+                horizontalHasArrows: true,
+              },
             }}
-        />
+          />
       );
 }
  

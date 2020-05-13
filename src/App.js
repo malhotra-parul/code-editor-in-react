@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Container,
   Wrapper,
@@ -52,14 +52,15 @@ const Checkbox = ({ className, checked, ...props }) => (
 
 const App = () => {
   const [code, setCode] = useState(
-    localStorage.getItem("myCode") || "//Write your Javascript code here!"
+    localStorage.getItem("code") || "//type your javascript code here"
   );
   const [js, setJs] = useState(
-    localStorage.getItem("js") || "//Hey! Write your Javascript code here!"
+    localStorage.getItem("js") || "//type your javascript code here"
   );
   const [py, setPy] = useState(
-    localStorage.getItem("py") || "#Write your Python code here!"
+    localStorage.getItem("python") || "#type your python code here"
   );
+  const [autosave, setAutosave] = useState("Saved.");
   const [theme, setTheme] = useState("light");
   const [isReset, setIsReset] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -71,16 +72,42 @@ const App = () => {
   const [outputResponse, setOutputResponse] = useState(null);
   const [commandLineArgs, setCommandLineArgs] = useState(false);
   const [commandLineInput, setcommandLineInput] = useState("");
-  const [lang, setLang] = useState("javascript");
-  const editorRef = useRef();
-  const valueGetter = useRef();
+  const [lang, setLang] = useState(localStorage.getItem("lang") || "javascript");
+  const [isEditorReady, setIsEditorReady] = useState(false);
+  const [timer, setTimer] = useState(null);
+  const [line, setLine] = useState("");
+  const [column, setColumn] = useState("");
 
-  useEffect(() => {
-    localStorage.setItem("myCode", code);
+  const onChange = (e, newValue) => {
+    setCode(newValue);
+  };
+
+  const resetTimeout = (id, newId)=>{
+    clearTimeout(id);
+    return newId;
+    };
+    
+    const onSave = useCallback(()=>{
+    
+      if(lang === "javascript"){
+        setJs(code);
+      }else if(lang === "python"){
+        setPy(code);
+      }
+    }, [code, lang]);
+    
+    useEffect(()=>{
+    resetTimeout(timer, setTimeout(()=>{
+    onSave()
+    }, 10))
+    }, [timer, onSave]);
+
+    useEffect(() => {
+    localStorage.setItem("code", code);
     localStorage.setItem("py", py);
     localStorage.setItem("js", js);
-    localStorage.setItem("fontSize", fontSize);
-  }, [code, py, js, fontSize]);
+    localStorage.setItem("lang", lang);
+  }, [code, py, js, lang]);
 
   const handleToggle = (e) => {
     theme === "dark" ? setTheme("light") : setTheme("dark");
@@ -119,25 +146,25 @@ const App = () => {
     fileDownload(code, `myCode.${lang === "javascript" ? "js" : "py"}`);
   };
 
-  const onLoad = (_value, editor) => {
-    setCode(js);
-    valueGetter.current = _value;
-    // console.log(valueGetter.current()); // holds value of editor
-    editorRef.current = editor;
-    // console.log(editorRef.current);
-    // editor.onDidChangeModelLanguage()
+  const monacoEditor = monaco.init();
+
+  const onLoad = (monaco, editor) => {
+    setIsEditorReady(true);
+
     editor.onDidChangeCursorPosition((e) => {
       const position = e.position;
       const { lineNumber, column } = position;
+      setLine(lineNumber);
+      setColumn(column);
       console.log(lineNumber, column);
     });
-    monaco
-      .init()
+
+    monacoEditor
       .then((monaco) => {
         editor.addCommand(
           monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S,
           function () {
-            alert("YOu are trying ot save the file!");
+            alert("YOu are trying to save the file!");
           }
         );
         editor.addCommand(
@@ -150,33 +177,23 @@ const App = () => {
       .catch((err) => console.log(err));
   };
 
-  const onChange = (event, newValue) => {
-    setCode(newValue);
-
-    if (lang === "python") {
-      setPy(newValue);
-    } else if (lang === "javascript") {
-      setJs(newValue);
-    }
-  };
-
   const handleLanguageChange = (e) => {
     setLang(e.target.value);
-      if(e.target.value === "javascript" ){
-        
-        if(code !== js){
-          setCode(js);
-        }else{
-          setCode("//type your javascript code here");
-        }
-      } else if (e.target.value === "python" ){
-
-        if(code !== py){
-          setCode(py);
-        }else{
-          setCode("#type your python code here");
+    if (e.target.value === "javascript"){
+      if(code !== js){
+        setCode(js);
+      } else{
+          setCode("//Enter you code in js");
         }
       }
+    if (e.target.value === "python"){
+        if(code !== py){
+          setCode(py);
+        } else{
+            setCode("#Enter you code in py");
+          }
+        }
+   
   };
 
   const input = {
@@ -190,9 +207,7 @@ const App = () => {
     setIsCompiled(true);
     axios
       .post(
-        `https://compilerapi.code.in/${
-          lang === "javascript" ? "js" : "py3"
-        }`,
+        `https://compilerapi.code.in/${lang === "javascript" ? "js" : "py3"}`,
         input
       )
       .then((res) => {
@@ -267,7 +282,7 @@ const App = () => {
               />
             </span>
             <span>
-              <SelectLang value={lang} onChange={handleLanguageChange}>
+              <SelectLang value={lang} disabled={!isEditorReady} onChange={handleLanguageChange}>
                 <option value="javascript">Javascript(Node)</option>
                 <option value="python">Python 3</option>
               </SelectLang>
@@ -283,6 +298,7 @@ const App = () => {
             value={code}
             language={lang}
             editorDidMount={onLoad}
+            loading="Initializing the Editor..."
             options={{
               fontSize: fontSize,
               smoothScrolling: true,
@@ -299,6 +315,12 @@ const App = () => {
         </Wrapper>
         <Toolbar>
           <Sample>
+            <span style={{padding: "0 10px"}}>
+              Line: {line}
+            </span>
+            <span style={{padding: "0 10px"}}>
+              Column: {column}
+            </span>
             <span>
               <FontAwesomeIcon
                 icon={faDownload}
