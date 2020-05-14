@@ -15,6 +15,8 @@ import {
   Icon,
   TextArea,
   SelectLang,
+  Bg,
+  PopUp
 } from "./styles";
 import { css } from "@emotion/core";
 import BounceLoader from "react-spinners/BounceLoader";
@@ -66,12 +68,15 @@ const App = () => {
   const [ruby, setRuby] = useState(
     localStorage.getItem("ruby") || "#type your ruby code here"
   );
+  const [shell, setShell] = useState(
+    localStorage.getItem("shell") || "#type your shell script here"
+  );
   const [autosave, setAutosave] = useState("Saved.");
   const [theme, setTheme] = useState("light");
   const [isReset, setIsReset] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [fontSize, setFontSize] = useState(
-    Number(localStorage.getItem("fontSize")) || 14
+    Number(localStorage.getItem("fontSize")) || 16
   );
   const [isCompiled, setIsCompiled] = useState(false);
   const [output, setOutput] = useState(false);
@@ -91,6 +96,7 @@ const App = () => {
   if(lang === "javascript") extension="js";
   if(lang === "python") extension="py";
   if(lang === "ruby") extension="rb";
+  if(lang === "shell") extension="sh"
 
 
   const onChange = (e, newValue) => {
@@ -116,6 +122,8 @@ const App = () => {
         setPy(code);
       }else if(lang === "ruby"){
         setRuby(code);
+      }else if(lang === "shell"){
+        setShell(code);
       }
     }, [code, lang]);
     
@@ -131,7 +139,8 @@ const App = () => {
     localStorage.setItem("js", js);
     localStorage.setItem("ruby", ruby);
     localStorage.setItem("lang", lang);
-  }, [code, py, js, ruby, lang]);
+    localStorage.setItem("shell", shell);
+  }, [code, py, js, ruby, shell, lang]);
 
   const handleToggle = (e) => {
     theme === "dark" ? setTheme("light") : setTheme("dark");
@@ -167,6 +176,10 @@ const App = () => {
       console.log("handleDelete - ruby");
       setCode("#Type your Ruby code here");
       setRuby("#Type your Ruby code here");
+    }else if (lang === "shell") {
+      console.log("handleDelete - shell");
+      setCode("#Type your Shell code here");
+      setShell("#Type your Shell code here");
     }
   };
 
@@ -229,7 +242,13 @@ const App = () => {
               setCode("#Enter you code in rb");
             }
           }
-   
+    if (e.target.value === "shell"){
+            if(code !== shell){
+              setCode(shell);
+            } else{
+                setCode("#Enter you code in sh");
+              }
+            }
   };
 
   const goFullScreen = ()=>{
@@ -242,7 +261,7 @@ const App = () => {
   const handleFullScreen = (gofull)=>{
     setGoFull(gofull);
     setWidth("80vw");
-    setHeight("60vh");
+    setHeight("60vh");  
   };
 
   const input = {
@@ -259,6 +278,7 @@ const App = () => {
     if(lang === "javascript") endpoint="js";
     if(lang === "python") endpoint="py3";
     if(lang === "ruby") endpoint="ruby";
+    if(lang === "shell") endpoint="bash";
     setIsCompiled(true);
     
     axios
@@ -284,6 +304,8 @@ const App = () => {
       setJs(content);
     } else if (lang === "ruby") {
       setRuby(content);
+    } else if (lang === "shell") {
+      setShell(content);
     }
   };
 
@@ -356,6 +378,7 @@ const App = () => {
                 <option value="javascript">Javascript(Node)</option>
                 <option value="python">Python 3</option>
                 <option value="ruby">Ruby</option>
+                <option value="shell">Bash</option>
               </SelectLang>
             </span>
           </Sample>
@@ -442,6 +465,8 @@ const App = () => {
       color={"green"}
       loading={loadingOutput}
     />
+  
+    
     }
     
       {commandLineArgs && (

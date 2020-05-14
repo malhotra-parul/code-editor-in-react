@@ -12,7 +12,9 @@ const Upload = ({ handleFile, language }) => {
       ? "js"
       : language === "python"
       ? "py"
-      : "rb";
+      : language === "ruby"
+      ? "rb"
+      : "sh";
 
   return (
     <ReactFileReader
