@@ -60,6 +60,9 @@ const App = () => {
   const [py, setPy] = useState(
     localStorage.getItem("python") || "#type your python code here"
   );
+  const [ruby, setRuby] = useState(
+    localStorage.getItem("ruby") || "#type your ruby code here"
+  );
   const [autosave, setAutosave] = useState("Saved.");
   const [theme, setTheme] = useState("light");
   const [isReset, setIsReset] = useState(false);
@@ -74,9 +77,14 @@ const App = () => {
   const [commandLineInput, setcommandLineInput] = useState("");
   const [lang, setLang] = useState(localStorage.getItem("lang") || "javascript");
   const [isEditorReady, setIsEditorReady] = useState(false);
-  const [timer, setTimer] = useState(null);
+  const timer = null;
   const [line, setLine] = useState("");
   const [column, setColumn] = useState("");
+  let extension;
+  if(lang === "javascript") extension="js";
+  if(lang === "python") extension="py";
+  if(lang === "ruby") extension="rb";
+
 
   const onChange = (e, newValue) => {
     setCode(newValue);
@@ -99,6 +107,8 @@ const App = () => {
         setJs(code);
       }else if(lang === "python"){
         setPy(code);
+      }else if(lang === "ruby"){
+        setRuby(code);
       }
     }, [code, lang]);
     
@@ -112,8 +122,9 @@ const App = () => {
     localStorage.setItem("code", code);
     localStorage.setItem("py", py);
     localStorage.setItem("js", js);
+    localStorage.setItem("ruby", ruby);
     localStorage.setItem("lang", lang);
-  }, [code, py, js, lang]);
+  }, [code, py, js, ruby, lang]);
 
   const handleToggle = (e) => {
     theme === "dark" ? setTheme("light") : setTheme("dark");
@@ -145,11 +156,16 @@ const App = () => {
       console.log("handleDelete - py");
       setCode("#Type your python code here");
       setPy("#Type your python code here");
+    }else if (lang === "ruby") {
+      console.log("handleDelete - ruby");
+      setCode("#Type your Ruby code here");
+      setRuby("#Type your Ruby code here");
     }
   };
 
   const downloadFile = () => {
-    fileDownload(code, `myCode.${lang === "javascript" ? "js" : "py"}`);
+    
+    fileDownload(code, `myCode.${extension}`);
   };
 
   const monacoEditor = monaco.init();
@@ -199,21 +215,34 @@ const App = () => {
             setCode("#Enter you code in py");
           }
         }
+    if (e.target.value === "ruby"){
+          if(code !== ruby){
+            setCode(ruby);
+          } else{
+              setCode("#Enter you code in rb");
+            }
+          }
    
   };
 
   const input = {
+    
     // "code" : code.split("/n")[0],
     code: code,
-    lang: lang === "javascript" ? "js" : "py",
+    lang: extension,
     cInputValue: commandLineInput,
   };
 
   const compileCode = () => {
+    let endpoint;
+    if(lang === "javascript") endpoint="js";
+    if(lang === "python") endpoint="py3";
+    if(lang === "ruby") endpoint="ruby";
     setIsCompiled(true);
+    
     axios
       .post(
-        `https://compilerapi.code.in/${lang === "javascript" ? "js" : "py3"}`,
+        `https://compilerapi.code.in/${endpoint}`,
         input
       )
       .then((res) => {
@@ -231,6 +260,8 @@ const App = () => {
       setPy(content);
     } else if (lang === "javascript") {
       setJs(content);
+    } else if (lang === "ruby") {
+      setRuby(content);
     }
   };
 
@@ -285,6 +316,7 @@ const App = () => {
               <SelectLang value={lang} disabled={!isEditorReady} onChange={handleLanguageChange}>
                 <option value="javascript">Javascript(Node)</option>
                 <option value="python">Python 3</option>
+                <option value="ruby">Ruby</option>
               </SelectLang>
             </span>
           </Sample>
