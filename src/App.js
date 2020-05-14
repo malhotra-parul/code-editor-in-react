@@ -23,6 +23,7 @@ import Header from "./components/Header";
 import { ControlledEditor, monaco } from "@monaco-editor/react";
 import YourIp from "./components/YourIP";
 import Font from "./fonts/fonts";
+import FullScreen from "react-full-screen";
 import axios from "axios";
 import Modal from "./components/Modal";
 import Upload from "./components/Upload.js";
@@ -83,6 +84,9 @@ const App = () => {
   const timer = null;
   const [line, setLine] = useState("");
   const [column, setColumn] = useState("");
+  const [gofull, setGoFull] = useState(false);
+  const [width, setWidth] = useState("80vw");
+  const [height, setHeight] = useState("60vh");
   let extension;
   if(lang === "javascript") extension="js";
   if(lang === "python") extension="py";
@@ -230,6 +234,15 @@ const App = () => {
 
   const goFullScreen = ()=>{
     console.log("full screen!");
+    setGoFull(true);
+    setWidth("100vw");
+    setHeight("100vh");
+  };
+
+  const handleFullScreen = (gofull)=>{
+    setGoFull(gofull);
+    setWidth("80vw");
+    setHeight("60vh");
   };
 
   const input = {
@@ -348,9 +361,10 @@ const App = () => {
           </Sample>
         </Toolbar>
         <Wrapper>
+          <FullScreen enabled={gofull} onChange={handleFullScreen}>
           <ControlledEditor
-            height="64vh"
-            width="80vw"
+            height={height}
+            width={width}
             theme={theme}
             onChange={onChange}
             value={code}
@@ -370,6 +384,7 @@ const App = () => {
               },
             }}
           />
+          </FullScreen>
         </Wrapper>
         <Toolbar>
           <Sample>
