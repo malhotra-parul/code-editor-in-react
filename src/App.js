@@ -16,6 +16,8 @@ import {
   TextArea,
   SelectLang,
 } from "./styles";
+import { css } from "@emotion/core";
+import BounceLoader from "react-spinners/BounceLoader";
 import GlobalStyles from "./theme/globalStyles";
 import Header from "./components/Header";
 import { ControlledEditor, monaco } from "@monaco-editor/react";
@@ -35,7 +37,7 @@ import {
   faFont,
 } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
-library.add(faSave, faTextHeight, faCompress, faSync, faDownload, faFont);
+library.add(faSave, faTextHeight, faCompress, faSync, faDownload, faFont, faCompress);
 var fileDownload = require("js-file-download");
 var base64 = require("base-64");
 
@@ -72,6 +74,7 @@ const App = () => {
   );
   const [isCompiled, setIsCompiled] = useState(false);
   const [output, setOutput] = useState(false);
+  const [loadingOutput, setLoadingOutput] = useState(false);
   const [outputResponse, setOutputResponse] = useState(null);
   const [commandLineArgs, setCommandLineArgs] = useState(false);
   const [commandLineInput, setcommandLineInput] = useState("");
@@ -225,6 +228,10 @@ const App = () => {
    
   };
 
+  const goFullScreen = ()=>{
+    console.log("full screen!");
+  };
+
   const input = {
     
     // "code" : code.split("/n")[0],
@@ -234,6 +241,7 @@ const App = () => {
   };
 
   const compileCode = () => {
+    setLoadingOutput(true);
     let endpoint;
     if(lang === "javascript") endpoint="js";
     if(lang === "python") endpoint="py3";
@@ -248,6 +256,7 @@ const App = () => {
       .then((res) => {
         setOutputResponse(res.data);
         setIsCompiled(false);
+        setLoadingOutput(false);
         setOutput(true);
       });
   };
@@ -269,6 +278,13 @@ const App = () => {
     setOutput(false);
   };
 
+  const override = css`
+  display: block;
+  margin: 0 auto;
+  padding: 20px;
+
+`;
+
   return (
     <Container>
       <GlobalStyles />
@@ -289,7 +305,7 @@ const App = () => {
             />
           </Sample>
           <Sample>
-            <span style={{padding: "0 10px"}}>
+            <span style={{padding: "0 10px" }}>
               {autosave}
             </span>
             <span>
@@ -299,16 +315,26 @@ const App = () => {
                 color="green"
                 size="lg"
                 title="Change Font Size"
-                style={{ padding: "10px" }}
+                style={{ padding: "10px", cursor: "pointer" }}
               />{" "}
             </span>
+            <span>
+            <FontAwesomeIcon
+              icon={faCompress}
+              onClick={goFullScreen}
+              color="green"
+              size="lg"
+              title="Switch to Full Screen mode"
+              style={{ padding: "10px" , cursor: "pointer" }}
+            />{" "}
+          </span>
             <span>
               <FontAwesomeIcon
                 icon={faSync}
                 color="green"
                 size="lg"
                 title="Reset Code"
-                style={{ padding: "10px" }}
+                style={{ padding: "10px" , cursor: "pointer"}}
                 onClick={handleReset}
               />
             </span>
@@ -347,7 +373,7 @@ const App = () => {
         </Wrapper>
         <Toolbar>
           <Sample>
-            <span style={{padding: "0 10px"}}>
+            <span style={{padding: "0 10px" }}>
               Line: {line}
             </span>
             <span style={{padding: "0 10px"}}>
@@ -359,7 +385,7 @@ const App = () => {
                 color="green"
                 size="lg"
                 title="Download File"
-                style={{ padding: "0 10px" }}
+                style={{ padding: "0 10px" , cursor: "pointer" }}
                 onClick={downloadFile}
               />
             </span>
@@ -369,7 +395,7 @@ const App = () => {
                 color="green"
                 size="lg"
                 title="Download File"
-                style={{ padding: "0 10px" }}
+                style={{ padding: "0 10px" , cursor: "pointer"}}
               />
               :{fontSize}
             </span>
@@ -394,6 +420,15 @@ const App = () => {
           {isCompiled ? "Compiling..." : "Compile"}
         </StyledButton>
       </ModifiedWrapper>
+    { loadingOutput &&
+     <BounceLoader
+      css={override}
+      size={70}
+      color={"green"}
+      loading={loadingOutput}
+    />
+    }
+    
       {commandLineArgs && (
         <IDEWrapper style={{ marginBottom: "40px" }}>
           <TextArea

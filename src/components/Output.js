@@ -46,6 +46,7 @@ const Output = ({ handleClose, outputResponse }) => {
             size="2x"
             color="green"
             onClick={handleClick}
+            style={{cursor: "pointer"}}
           />
         </span>
       </OutputHeader>

@@ -40,6 +40,7 @@ export const Pre = styled.pre`
 `;
 
 export const ToggleInput = styled.input`
+  cursor: pointer;
   -webkit-appearance: none;
   outline: none;
   position: relative;
@@ -205,6 +206,7 @@ export const Toolbar = styled.div`
 `;
 
 export const StyledButton = styled.button`
+cursor: pointer;
   background-color: green;
   color: white;
   font-size: 1.3em;
@@ -320,6 +322,7 @@ export const ModalBtn = styled.button`
 `;
 
 export const SelectLang = styled.select`
+  cursor: pointer;
   display: block;
   font-size: 16px;
   font-family: sans-serif;
