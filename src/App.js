@@ -14,9 +14,7 @@ import {
   StyledCheckbox,
   Icon,
   TextArea,
-  SelectLang,
-  Bg,
-  PopUp
+  SelectLang
 } from "./styles";
 import { css } from "@emotion/core";
 import BounceLoader from "react-spinners/BounceLoader";
@@ -184,8 +182,13 @@ const App = () => {
   };
 
   const downloadFile = () => {
-    
-    fileDownload(code, `myCode.${extension}`);
+    let currentCode ;
+    if(lang === "javascript") currentCode = js;
+    if(lang === "python") currentCode = py;
+    if(lang === "ruby") currentCode = ruby;
+    if(lang === "shell") currentCode = shell;
+    fileDownload(currentCode, `myCode.${extension}`);
+    console.log(currentCode);
   };
 
   const monacoEditor = monaco.init();
@@ -206,13 +209,13 @@ const App = () => {
         editor.addCommand(
           monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S,
           function () {
-            alert("YOu are trying to save the file!");
+            alert("Your code has been Autosaved.");
           }
         );
         editor.addCommand(
           monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_D,
           function () {
-            alert("Do you wish to download file?");
+            alert("Click on Download button to download");
           }
         );
       })
@@ -453,7 +456,6 @@ const App = () => {
             <span style={{ color: "green" }}> Command Line Arguments</span>
           </label>
         </div>
-
         <StyledButton onClick={compileCode}>
           {isCompiled ? "Compiling..." : "Compile"}
         </StyledButton>
@@ -465,10 +467,7 @@ const App = () => {
       color={"green"}
       loading={loadingOutput}
     />
-  
-    
     }
-    
       {commandLineArgs && (
         <IDEWrapper style={{ marginBottom: "40px" }}>
           <TextArea
