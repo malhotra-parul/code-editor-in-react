@@ -6,7 +6,7 @@ import SocialMedia from "./SocialMediaIcons";
 const Header = (props) => {
     return ( 
        <Heading>
-        <Image src="https://i.ibb.co/BNpt3gw/download-img-code.png" alt="/"/>
+        <Image src="https://i.ibb.co/Xy32Lx9/algorithm.png" alt="/"/>
         <SocialMedia />
        </Heading>
      );

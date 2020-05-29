@@ -89,7 +89,7 @@ const App = () => {
   const [column, setColumn] = useState("");
   const [gofull, setGoFull] = useState(false);
   const [width, setWidth] = useState("80vw");
-  const [height, setHeight] = useState("60vh");
+  const [height, setHeight] = useState("55vh");
   let extension;
   if(lang === "javascript") extension="js";
   if(lang === "python") extension="py";
@@ -481,7 +481,7 @@ const App = () => {
       {output && (
         <Output outputResponse={outputResponse} handleClose={handleClose} />
       )}
-      <Copyright>© CODE.IN</Copyright>
+      <Copyright>© Parul Malhotra</Copyright>
     </Container>
   );
 };

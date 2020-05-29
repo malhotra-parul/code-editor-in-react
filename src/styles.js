@@ -93,9 +93,9 @@ export const Sample = styled.div`
 `;
 
 export const Image = styled.img`
-  width: 10em;
+  width: 5em;
   position: relative;
-  top: 20px;
+  top: 10px;
   left: 20px;
   @media (max-width: 550px) {
     left: 0;
@@ -105,7 +105,7 @@ export const Image = styled.img`
 `;
 
 export const Heading = styled.header`
-  margin-bottom: 40px;
+  margin-bottom: 5px;
   padding: 0;
   width: 100%;
   height: auto;
@@ -124,7 +124,7 @@ export const Heading = styled.header`
 export const UnorderedList = styled.ul`
   position: relative;
   right: 20px;
-  top: 20px;
+  top: 5px;
   display: flex;
   margin: 0;
   padding: 0;
@@ -180,7 +180,7 @@ export const IDEWrapper = styled.div`
   background-color: white;
   width: 80%;
   margin: 0 auto;
-  padding: 0pc;
+  padding: 0px;
   margin-bottom: 10px;
   box-sizing: border-box;
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.275) !important;
@@ -419,7 +419,7 @@ export const Copyright = styled.div`
   margin: 40px;
   color: green;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 15px;
   text-align: center;
 `;
 export const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
