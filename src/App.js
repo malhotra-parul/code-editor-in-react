@@ -286,7 +286,7 @@ const App = () => {
     
     axios
       .post(
-        `https://compilerapi.code.in/${endpoint}`,
+        `https://compiler.code.in/${endpoint}`,
         input
       )
       .then((res) => {
